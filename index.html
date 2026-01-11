@@ -12,240 +12,362 @@
     <meta property="og:image:height" content="1200" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    
-    <!-- CSS 라이브러리 (로컬 경로 유지하되 실패 시 대비) -->
     <link rel="stylesheet" href="./resources/snow.css">
     <link rel="stylesheet" href="./resources/font.css">
+    <!-- 아이콘-->
     <link rel="icon" type="image/jpeg" href="images/favicon.jpeg?ver=1.1">
-    
-    <!-- Bootstrap & Plugins CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./resources/preloader.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/flexslider.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-    
-    <!-- Slick Slider CSS (CDN) -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link rel="shortcut icon" type="image/jpeg" href="images/favicon.jpeg?ver=1.1">
+    <link rel="apple-touch-icon" href="images/favicon.jpeg?ver=1.1">
+    <!-- 아이콘 끝-->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="./resources/bootstrap.min.css" type="text/css" media="screen">
+    <!-- Pace -->
+    <link rel="stylesheet" href="./resources/preloader.css" media="screen">
+    <link rel="stylesheet" href="./resources/preloader-default.css" media="screen">
+    <!-- Flexslider -->
+    <link rel="stylesheet" href="./resources/flexslider.css" type="text/css">
+    <!-- Animate -->
+    <link rel="stylesheet" href="./resources/animate.css" type="text/css">
+    <!-- Countdown -->
+    <link rel="stylesheet" href="./resources/jquery.countdown.css" type="text/css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="./resources/magnific-popup.css" type="text/css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="./resources/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="./resources/owl.theme.css" type="text/css">
+    <!-- Icon -->
+    <link rel="stylesheet" href="./resources/fontello.css" type="text/css" media="screen">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
 
     <!-- Theme CSS -->
     <link href="./resources/style.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
 
-    <style>
-        /* 갤러리 스타일 고정 */
+    <link rel="stylesheet" href="./resources/slick-theme.css" type="text/css">
+    <link rel="stylesheet" href="./resources/slick.css" type="text/css">
+
+    <style data-emotion="css" data-s=""></style>
+<!-- 겔러리 스타일 -->
+<style>
+    /* 1. 메인 큰 이미지 규격 고정 (PC/모바일 공통) */
+    .slider-for .photo-item img,
+    .slider-for2 .photo-item img {
+        width: 100% !important;
+        height: 500px !important;    /* 이미지 높이를 강제로 고정합니다 */
+        object-fit: cover !important; /* 비율을 유지하면서 영역을 꽉 채웁니다 (잘림 방지) */
+        object-position: center !important; /* 이미지의 정중앙이 보이게 합니다 */
+    }
+
+    /* 2. 하단 썸네일 이미지 규격 고정 */
+    .slider-nav .photo-item .thum,
+    .slider-nav2 .photo-item .thum {
+        width: 100% !important;
+        height: 60px !important;      /* 썸네일의 높이를 고정합니다 */
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    /* 3. 모바일용 (화면 너비가 768px 이하일 때) */
+    @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            width: 100% !important;
-            height: 500px !important;
-            object-fit: cover !important;
-            object-position: center !important;
+            height: 350px !important; /* 모바일에서는 화면에 맞게 높이를 줄입니다 */
         }
         .slider-nav .photo-item .thum,
         .slider-nav2 .photo-item .thum {
-            width: 100% !important;
-            height: 60px !important;
-            background-size: cover !important;
-            background-position: center !important;
-            cursor: pointer;
+            height: 50px !important;  /* 모바일 썸네일 높이 조절 */
         }
-        @media (max-width: 768px) {
-            .slider-for .photo-item img,
-            .slider-for2 .photo-item img { height: 350px !important; }
-            .slider-nav .photo-item .thum,
-            .slider-nav2 .photo-item .thum { height: 50px !important; }
-        }
-    </style>
+    }
+</style>
+<!-- 겔러리 스타일 -->
+
+    <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
+    <link href="./resources/jquery-sakura.css" rel="stylesheet" type="text/css">   
 </head>
 
 <body class="outside-bottom-bar-page pace-done">
-
+<div class="pace  pace-inactive">
+    <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+        <div class="pace-progress-inner"></div>
+    </div>
+    <div class="pace-activity"></div>
+</div>
+<!--PRELOADER-->
 <div id="preloader" style="display: none;">
+
     <div class="alignment">
         <div class="v-align center-middle">
-            <div class="heart-animation"><i class="glyphicon glyphicon-heart"></i></div>
+
+            <!-- LEFT HEART -->
+            <div class="heart-animation">
+                <i class="de-icon-heart"></i>
+            </div>
+
+            <!-- RIGHT HEART -->
+            <div class="heart-animation-reverse">
+                <i class="de-icon-heart"></i>
+            </div>
+
         </div>
     </div>
-</div>
+
+</div> <!--END of PRELOADER-->
+
 
 <!-- MAIN SLIDER -->
-<section id="main-slider" class="flexslider fullscreen" style="height: 100vh;">
+<section id="main-slider" class="flexslider fullscreen" style="height: 887px;">
+    <!-- MAIN SLIDER TITLE OUTTER WRAPPER -->
     <div class="slide-title-outter-wrapper">
+
+        <!-- MAIN SLIDER TITLE INNER WRAPPER -->
         <div class="slide-title-inner-wrapper">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-offset-3 col-md-6 animation delay1 fadeInUp animated">
-                        <div class="banner-text" style="margin-top: 30vh;">
-                            <h1 style="font-size: 35px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                                이상민 ❤️ 임선주
-                            </h1>
-                            <div id="banner-date" style="color: #fff; font-size: 18px;">2026년 01월 11일 일요일 오후 3시</div>
+
+            <!-- TITLE 2 -->
+            <div class="slide-title align-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6 animation delay1 fadeInUp animated" style="visibility: visible;text-shadow: rgb(164 156 156 / 37%) 1px 1px;">
+                            <div class="banner-text withlove medium light" style="margin-top: 300px; text-align: center;">
+                                <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; display: inline-block; text-align: center;">
+                                    이상민<br>
+                                    <span style="font-size: 20px; vertical-align: middle;">&</span><br>
+                                    임선주</h1></div>
+                            <div id="banner-date">2026년 01월 11일 일요일 오후 3시</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+        </div><!-- END of MAIN SLIDER TITLE INNER WRAPPER -->
+
+    </div> <!-- END of MAIN SLIDER TITLE OUTTER WRAPPER -->
+
+    <!-- MAIN SLIDER IMAGES -->
     <ul class="slides">
-        <li style="background: url(images/Main.JPG) no-repeat center center; background-size: cover;"></li>
+        <li class="flex-active-slide2" style="position: relative; opacity: 1; display: block; ">
+            <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:top center">
+            </div>
+        </li>
+    </ul><!-- END of MAIN SLIDER IMAGES -->
+
+    <ul class="flex-direction-nav">
+        <li><a class="flex-prev flex-disabled" href="#" tabindex="-1">Previous</a></li>
+        <li><a class="flex-next flex-disabled" href="#" tabindex="-1">Next</a></li>
     </ul>
-</section>
+</section><!-- ENF of MAIN SLIDER -->
 
-<!-- CONTENT -->
+
+<!--CONTENT SECTION-->
 <section id="content">
-    <section id="map" style="padding: 80px 0;">
-        <div class="container text-center">
-            <div class="section-title">
-                <img src="https://self.cryucompany.com/flower-3.png" style="width:40px" alt="flower">
-                <p style="font-size: 1.2em; line-height: 1.8; margin-top: 20px;">
-                    함께하는 첫 걸음,<br>그 시작의 자리에 초대합니다.
-                </p>
-            </div>
-            
-            <div class="row" style="margin-top: 50px;">
-                <!-- 신랑 -->
-                <div class="col-xs-6" style="border-right: 1px solid #eee;">
-                    <h3>신랑</h3>
-                    <p>이노욱 · 한복순 의 차남</p>
-                    <p style="font-size: 1.3em; font-weight: bold;">상 민</p>
-                    <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin: 20px auto; border: 3px solid #f9f9f9;">
-                        <img src="./images/sm.JPG" alt="신랑" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <!-- 신부 -->
-                <div class="col-xs-6">
-                    <h3>신부</h3>
-                    <p>임용섭 · 백정화 의 장녀</p>
-                    <p style="font-size: 1.3em; font-weight: bold;">선 주</p>
-                    <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin: 20px auto; border: 3px solid #f9f9f9;">
-                        <img src="./images/sj.JPG" alt="신부" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin-top: 80px;">
-                <div class="col-md-12">
-                    <h3>오시는 길</h3>
-                    <p style="font-size: 1.1em;">서울시 관악구 봉천동 은천로8길 11</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GALLERY SECTION -->
-    <section id="gallery" style="background: #fdfdfd; padding: 60px 0;">
+    <section id="map">
         <div class="container">
             <div class="row">
-                <div class="col-md-offset-3 col-md-6 text-center">
-                    <h3>우리 둘</h3>
-                    <div class="slider-for" id="auto-gallery-for-1"></div>
-                    <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 15px;"></div>
+                <!-- SECTION TITLE -->
+                <div class="col-md-12 text-center">
+                    <div class="section-title animation fadeInUp" style="margin-top: 90px;margin-bottom: 90px">
+                         <img src="https://self.cryucompany.com/flower-3.png" style="width:40px" alt="">
+                        <p style="line-height: 39px;padding-top: 20px"><br>텍스트 텍스트 텍스트<br>텍스트 텍스트 텍스트<br>텍스트 텍스트 텍스트텍스트 텍스트 텍스트텍스트 텍스트 텍스트<br>텍스트 텍스트 텍스트텍스트 텍스트 텍스트텍스트 텍스트 텍스트<br>텍스트 텍스트 텍스트<br>텍스트 텍스트</p>
+                    </div>
                 </div>
-            </div>
+                <div class="col-xs-offset-1 col-xs-5 animation fadeIn animated" style="padding-right:5px;padding-left:0px;text-align:center;visibility: visible;line-height: 2em;border-right: solid 0.1px #e1e1e1; font-family: 'MapoFlowerIsland';">
+    <div style="margin-bottom: 20px">
+        <h3 style="margin-top: 0px;margin-bottom: 10px; font-weight: normal;">신랑</h3>
+        <span>이노욱 ・ 한복순</span><span style="font-size: 10px"> 의 차남</span><br>
+        <span style="font-size: 1.2em; display:block; margin-top: 10px;">상 민</span>
+    </div>
+    
+    <div class="photo-item fadeInUp animated" style="visibility: visible; margin: 0 auto; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <img src="./images/sm.JPG" alt="신랑" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</div>
 
-            <div class="row" style="margin-top: 100px;">
-                <div class="col-md-offset-3 col-md-6 text-center">
-                    <h3>추억들</h3>
-                    <div class="slider-for2" id="auto-gallery-for-2"></div>
-                    <div class="slider-nav2" id="auto-gallery-nav-2" style="margin-top: 15px;"></div>
+<div class="col-xs-5 animation fadeIn animated" style="padding-right:0px;padding-left:5px;text-align:center;visibility: visible;line-height: 2em;font-family: 'MapoFlowerIsland'">
+    <div style="margin-bottom: 20px">
+        <h3 style="margin-top: 0px;margin-bottom: 10px; font-weight: normal;">신부</h3>
+        <span>임용섭 ・ 백정화</span><span style="font-size: 10px"> 의 장녀</span><br>
+        <span style="font-size: 1.2em; display:block; margin-top: 10px;">선 주</span>
+    </div>
+
+    <div class="photo-item fadeInUp animated" style="visibility: visible; margin: 0 auto; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <img src="./images/sj.JPG" alt="선주" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</div>
+            </div>
+            <!-- ROW-3 -->
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 text-center" style="padding-top: 100px">
+                    <div style="margin-top: 20px;margin-bottom: 60px">
+                        <span style="font-family: 'MapoFlowerIsland'">초대 맨트 1</span>
+                    </div>
+                    <h3 class="inline">오시는 길</h3>
+                    <div style="margin-top: 20px">
+                        <span style="font-family: 'MapoFlowerIsland'">서울시 관악구 봉천동 은천로8길 11</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+  <!-- 갤러리 관련 부분 -->
+<section id="gallery">
+    <div class="container">
+        <div class="row">
+            <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
+                <div class="slider-for" id="auto-gallery-for-1"></div>
+                <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="slider-wrap2 col-md-offset-3 col-md-6 text-center" style="margin-bottom: 100px;">
+                <h3>추억들</h3>
+                <div class="slider-for2" id="auto-gallery-for-2"></div>
+                <div class="slider-nav2" id="auto-gallery-nav-2" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 갤러리 끝 -->
+
+    <section id="contact">
+        <div class="image-divider auto-height" style="background-image:url(images/footer.jpg); padding-bottom: 100px;padding-top: 100px;">
+
+            <div class="divider-overlay"></div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8 text-center">
+                        <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
+                            <h4 style="font-family: 'MapoFlowerIsland'">마음 전하실 곳</h4><br>
+                            축하의 마음을 전달해주세요.
+                        </div>
+                        <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
+                            행복하게 잘 살겠습니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 </section>
 
-<!-- FOOTER -->
-<footer style="padding: 60px 0; background: #eee; text-align: center;">
-    <p>행복하게 잘 살겠습니다.</p>
-    <p>© 2026 Sangmin & Sunju Wedding Invitation</p>
-</footer>
+<!-- jQuery (CDN을 폴백으로 추가하여 $ 에러 방지) -->
+<script src="./resources/jquery-1.11.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.4.min.js"><\/script>')</script>
 
-<!-- JS LIBRARIES (CDN 우선 사용) -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="./resources/jquery-sakura.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider-min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<!-- Pace -->
+<script src="./resources/pace.min.js"></script>
+<!-- Bootstrap -->
+<script src="./resources/bootstrap.js"></script>
+<!-- Modernizr -->
+<script src="./resources/modernizr.js"></script>
+<!-- Device JS -->
+<script src="./resources/device.js"></script>
+<!-- TinyNav -->
+<script src="./resources/tinynav.min.js"></script>
+<!-- SmoothScroll -->
+<script src="./resources/jquery.smooth-scroll.js"></script>
+<!-- Flexslider -->
+<script src="./resources/jquery.flexslider.js"></script>
+<!-- Sticky -->
+<script src="./resources/jquery.sticky.js"></script>
+<!-- Waypoint -->
+<script src="./resources/jquery.waypoints.min.js"></script>
+<!-- DoubleTapToGo -->
+<script src="./resources/jquery.ui.widget.js"></script>
+<script src="./resources/jquery.dcd.doubletaptogo.js"></script>
+<!-- Vide -->
+<script src="./resources/jquery.vide.js"></script>
+<!-- Stellar -->
+<script src="./resources/jquery.stellar.js"></script>
+<!-- Masonry -->
+<script src="./resources/masonry.pkgd.min.js"></script>
+<!-- Countdown -->
+<script src="./resources/jquery.plugin.js"></script>
+<script src="./resources/jquery.countdown.js"></script>
+<!-- Magnific Popup -->
+<script src="./resources/jquery.magnific-popup.js"></script>
+<!-- Owl Carousel -->
+<script src="./resources/owl.carousel.js"></script>
+<!-- RSVP -->
+<script src="./resources/rsvp.js"></script>
 
-<!-- Custom Scripts (로컬 파일들이 있는 경우 로드) -->
-<script src="./resources/script.js"></script>
+<!-- Custom Core Script -->
+<script type="text/javascript" src="./resources/script.js"></script>
+<!-- Custom Additional Script -->
+<script type="text/javascript" src="./resources/main-slider-fade.js"></script>
 
 <script type="text/javascript">
-    // 이미지 체크 및 갤러리 생성 로직
-    async function getCorrectImageUrl(path, index) {
-        const extensions = ['.jpg', '.JPG', '.jpeg', '.PNG', '.png'];
-        for (let ext of extensions) {
+    // 이미지 존재 여부 확인 함수 (확장자 대소문자 모두 체크)
+    async function getExistingUrl(path, index) {
+        const exts = ['.jpg', '.JPG', '.jpeg', '.png', '.PNG'];
+        for (let ext of exts) {
             const url = path + index + ext;
-            try {
-                const exists = await new Promise((resolve) => {
-                    const img = new Image();
-                    img.onload = () => resolve(true);
-                    img.onerror = () => resolve(false);
-                    img.src = url;
-                });
-                if (exists) return url;
-            } catch (e) { continue; }
+            const exists = await new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = url;
+            });
+            if (exists) return url;
         }
         return null;
     }
 
+    // 갤러리 빌드 및 슬라이더 초기화
     async function initAutoGallery(path, forId, navId) {
-        const $forContainer = $(forId);
-        const $navContainer = $(navId);
-        if (!$forContainer.length) return;
+        const forContainer = $(forId);
+        const navContainer = $(navId);
+        let found = 0;
 
-        let foundCount = 0;
-        for (let i = 0; i < 30; i++) {
-            const imgUrl = await getCorrectImageUrl(path, i);
-            if (!imgUrl) break;
+        for (let i = 0; i < 50; i++) {
+            const imgUrl = await getExistingUrl(path, i);
+            if (!imgUrl) break; // 파일이 없으면 중단
 
-            $forContainer.append('<div class="photo-item"><img src="' + imgUrl + '"></div>');
-            $navContainer.append(
-                '<div class="photo-item"><div class="thum" style="background-image:url(' + imgUrl + ')"></div></div>'
+            forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" style="width:100%;"></div>');
+            navContainer.append(
+                '<div class="photo-item"><div>' +
+                '<div style="width:50px; height:50px; display:inline-block;">' +
+                '<div class="cover"></div>' +
+                '<div class="thum" style="background-image:url(' + imgUrl + ')"></div>' +
+                '</div></div></div>'
             );
-            foundCount++;
+            found++;
         }
 
-        if (foundCount > 0) {
-            $forContainer.slick({
+        // 이미지 로드가 완료된 후 해당 슬라이더 실행
+        if (found > 0) {
+            $(forId).slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 arrows: false,
-                fade: true,
-                asNavFor: navId
+                fade: false,
+                adaptiveHeight: true,
+                asNavFor: navId,
             });
-            $navContainer.slick({
-                slidesToShow: Math.min(foundCount, 5),
+            $(navId).slick({
+                slidesToShow: found < 5 ? found : 5,
                 slidesToScroll: 1,
                 asNavFor: forId,
-                dots: false,
-                centerMode: foundCount > 5,
-                focusOnSelect: true
+                focusOnSelect: true,
+                centerMode: found > 5
             });
-        } else {
-            $(forId).closest('.row').hide(); // 이미지가 없으면 해당 섹션 숨김
         }
     }
 
-    // jQuery가 확실히 로드된 후 실행
-    $(document).ready(function() {
-        // FlexSlider 초기화 (메인 슬라이더)
-        if ($.fn.flexslider) {
-            $('.flexslider').flexslider({
-                animation: "fade",
-                controlNav: false,
-                directionNav: false,
-                slideshowSpeed: 5000
-            });
-        }
-
-        // 자동 갤러리 초기화
+    // 페이지 로딩 완료 후 실행
+    $(window).on('load', function () {
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
         initAutoGallery("images/gallery/2/", "#auto-gallery-for-2", "#auto-gallery-nav-2");
     });
 </script>
-
 </body>
 </html>
