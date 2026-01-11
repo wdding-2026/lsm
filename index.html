@@ -307,72 +307,57 @@
     });
 </script>
 <script type="text/javascript">
-    // 이미지 존재 여부 확인 (캐시 방지를 위해 간단히 체크)
-    function checkImage(url) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = url;
-        });
-    }
+    // 이미지 로드 및 슬라이더 초기화 함수
+    function loadAndInitSlick(path, count, forId, navId) {
+        var forContainer = $(forId);
+        var navContainer = $(navId);
 
-    // 특정 경로에서 이미지를 찾아 슬라이더를 빌드하는 함수
-    async function buildGallery(path, forId, navId, slickClassFor, slickClassNav) {
-        const forContainer = $(forId);
-        const navContainer = $(navId);
-        let i = 0;
-
-        while (true) {
-            const imgUrl = `${path}${i}.jpg`;
-            const exists = await checkImage(imgUrl);
+        // 0부터 count까지 일단 HTML을 다 밀어 넣습니다. 
+        // (파일 존재 체크 없이 일단 다 넣고, 없는 이미지는 브라우저가 무시하게 하거나 
+        // 넉넉하게 숫자를 맞추는 방식이 가장 에러가 적습니다.)
+        for (var i = 0; i <= count; i++) {
+            var imgUrl = path + i + ".jpg";
             
-            if (!exists) break; // 파일이 없으면 중단
-
-            // 큰 이미지 추가
-            forContainer.append(`<div class="photo-item"><img src="${imgUrl}" alt=""></div>`);
+            // 메인 슬라이더 추가
+            forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" alt=""></div>');
             
-            // 하단 썸네일 추가 (기존 템플릿 디자인 구조 유지)
-            navContainer.append(`
-                <div class="photo-item">
-                    <div>
-                        <div style="width: 50px; height:50px; display: inline-block;">
-                            <div class="cover"></div>
-                            <div class="thum" style="background-image:url(${imgUrl})"></div>
-                        </div>
-                    </div>
-                </div>
-            `);
-            i++;
-            if (i > 50) break; // 안전장치
+            // 썸네일 슬라이더 추가
+            navContainer.append(
+                '<div class="photo-item"><div>' +
+                '<div style="width:50px; height:50px; display:inline-block;">' +
+                '<div class="cover"></div>' +
+                '<div class="thum" style="background-image:url(' + imgUrl + ')"></div>' +
+                '</div></div></div>'
+            );
         }
 
-        // 이미지가 로드된 후 슬라이더 실행
-        if (i > 0) {
-            $(slickClassFor).slick({
+        // HTML이 들어간 직후가 아니라, 아주 짧은 찰나(0.1초) 뒤에 슬라이더를 켭니다.
+        setTimeout(function() {
+            $(forId).slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 arrows: false,
                 fade: false,
                 adaptiveHeight: true,
-                asNavFor: slickClassNav,
+                asNavFor: navId,
             });
-            $(slickClassNav).slick({
+            $(navId).slick({
                 slidesToShow: 5,
                 slidesToScroll: 1,
-                asNavFor: slickClassFor,
-                focusOnSelect: true
+                asNavFor: forId,
+                focusOnSelect: true,
+                centerMode: true
             });
-        }
+        }, 100);
     }
 
     // 모든 리소스 로드 후 실행
     $(window).load(function () {
-        // 갤러리 1 실행
-        buildGallery("images/snt/gallery/1/", "#gallery-for-1", "#gallery-nav-1", ".slider-for", ".slider-nav");
+        // 갤러리 1: 경로, 사진 장수(예: 15장), 메인ID, 네비ID
+        loadAndInitSlick("images/snt/gallery/1/", 13, "#gallery-for-1", "#gallery-nav-1");
         
-        // 갤러리 2 실행
-        buildGallery("images/snt/gallery/2/", "#gallery-for-2", "#gallery-nav-2", ".slider-for2", ".slider-nav2");
+        // 갤러리 2: 경로, 사진 장수(예: 15장), 메인ID, 네비ID
+        loadAndInitSlick("images/snt/gallery/2/", 15, "#gallery-for-2", "#gallery-nav-2");
     });
 </script>
 </div>
