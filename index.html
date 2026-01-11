@@ -60,6 +60,7 @@
         height: 500px !important;    /* 이미지 높이를 강제로 고정합니다 */
         object-fit: cover !important; /* 비율을 유지하면서 영역을 꽉 채웁니다 (잘림 방지) */
         object-position: center !important; /* 이미지의 정중앙이 보이게 합니다 */
+        background-color: #f0f0f0;    /* 로딩 전 배경색 */
     }
 
     /* 2. 하단 썸네일 이미지 규격 고정 */
@@ -69,6 +70,7 @@
         height: 60px !important;      /* 썸네일의 높이를 고정합니다 */
         background-size: cover !important;
         background-position: center !important;
+        background-color: #eee;
     }
 
     /* 3. 모바일용 (화면 너비가 768px 이하일 때) */
@@ -217,6 +219,7 @@
     <div class="container">
         <div class="row">
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
+                <h3>우리 둘</h3>
                 <div class="slider-for" id="auto-gallery-for-1"></div>
                 <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 10px;"></div>
             </div>
@@ -306,7 +309,7 @@
 <script type="text/javascript" src="./resources/main-slider-fade.js"></script>
 
 <script type="text/javascript">
-    // 이미지 존재 여부 확인 함수 (확장자 대소문자 모두 체크)
+    // 이미지 존재 여부 확인 함수
     async function getExistingUrl(path, index) {
         const exts = ['.jpg', '.JPG', '.jpeg', '.png', '.PNG'];
         for (let ext of exts) {
@@ -322,17 +325,18 @@
         return null;
     }
 
-    // 갤러리 빌드 및 슬라이더 초기화
+    // 갤러리 빌드 및 슬라이더 초기화 (최적화 버전)
     async function initAutoGallery(path, forId, navId) {
         const forContainer = $(forId);
         const navContainer = $(navId);
-        let found = 0;
+        let initialFound = 0;
 
-        for (let i = 0; i < 50; i++) {
+        // 1. 초기 로딩: 먼저 5개 이미지만 빠르게 찾아 추가
+        for (let i = 0; i < 5; i++) {
             const imgUrl = await getExistingUrl(path, i);
-            if (!imgUrl) break; // 파일이 없으면 중단
+            if (!imgUrl) break;
 
-            forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" style="width:100%;"></div>');
+            forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" style="width:100%;" loading="lazy"></div>');
             navContainer.append(
                 '<div class="photo-item"><div>' +
                 '<div style="width:50px; height:50px; display:inline-block;">' +
@@ -340,11 +344,11 @@
                 '<div class="thum" style="background-image:url(' + imgUrl + ')"></div>' +
                 '</div></div></div>'
             );
-            found++;
+            initialFound++;
         }
 
-        // 이미지 로드가 완료된 후 해당 슬라이더 실행
-        if (found > 0) {
+        // 2. 이미지가 하나라도 있으면 즉시 슬라이더 실행 (화면 노출)
+        if (initialFound > 0) {
             $(forId).slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -354,12 +358,30 @@
                 asNavFor: navId,
             });
             $(navId).slick({
-                slidesToShow: found < 5 ? found : 5,
+                slidesToShow: initialFound < 5 ? initialFound : 5,
                 slidesToScroll: 1,
                 asNavFor: forId,
                 focusOnSelect: true,
-                centerMode: found > 5
+                centerMode: initialFound >= 5
             });
+
+            // 3. 백그라운드 로딩: 나머지 이미지(5~49)를 순차적으로 체크하고 슬라이더에 추가
+            setTimeout(async () => {
+                for (let i = 5; i < 50; i++) {
+                    const nextUrl = await getExistingUrl(path, i);
+                    if (!nextUrl) break;
+
+                    // Slick의 'slickAdd' 기능을 사용해 이미 돌아가는 슬라이더에 추가
+                    $(forId).slick('slickAdd', '<div class="photo-item"><img src="' + nextUrl + '" style="width:100%;" loading="lazy"></div>');
+                    $(navId).slick('slickAdd', 
+                        '<div class="photo-item"><div>' +
+                        '<div style="width:50px; height:50px; display:inline-block;">' +
+                        '<div class="cover"></div>' +
+                        '<div class="thum" style="background-image:url(' + nextUrl + ')"></div>' +
+                        '</div></div></div>'
+                    );
+                }
+            }, 1000); // 1초 뒤에 나머지 불러오기 시작
         }
     }
 
