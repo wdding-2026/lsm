@@ -85,16 +85,19 @@
         }
     }
     
-    /* 꽃잎 효과 z-index 조정 (이미지들보다 위에 보이도록) */
+    /* 꽃잎 효과 레이어 최상단 고정 및 클릭 방지 */
     .sakura {
-        z-index: 9999 !important;
-        pointer-events: none; /* 클릭 방해 금지 */
+        z-index: 99999 !important;
+        pointer-events: none !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
     }
 </style>
 <!-- 겔러리 스타일 -->
 
     <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
-    <!-- Sakura CSS (로컬 경로 유지하되 실패 대비) -->
+    <!-- Sakura CSS -->
     <link href="./resources/jquery-sakura.css" rel="stylesheet" type="text/css">   
 </head>
 
@@ -264,7 +267,6 @@
 
 <!-- Sakura JS -->
 <script type="text/javascript" charset="UTF-8" src="./resources/jquery-sakura.min.js"></script>
-<!-- 만약 위 파일이 없으면 동작하지 않으므로, 직접 효과를 주는 코드를 아래에 보완했습니다. -->
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <!-- Pace -->
@@ -385,17 +387,22 @@
 
     // 페이지 로딩 완료 후 실행
     $(window).on('load', function () {
-        // 꽃잎 흩날리는 효과 시작 (라이브러리 확인 후 실행)
-        try {
-            if (typeof $.fn.sakura === 'function') {
-                $('body').sakura();
-            } else {
-                // 만약 라이브러리가 로드되지 않았다면 대체 방식으로라도 시도
-                console.log("Sakura library not detected. Check resource path.");
+        // 꽃잎 흩날리는 효과 강제 초기화
+        setTimeout(function() {
+            try {
+                if (typeof $.fn.sakura === 'function') {
+                    // body뿐만 아니라 고정 포지션으로 작동하도록 설정
+                    $('body').sakura({
+                        outspeed: 0, // 화면 밖에서 사라지는 속도 조절
+                        fallSpeed: 1, // 떨어지는 속도
+                        newOn: 300   // 꽃잎 생성 간격 (ms)
+                    });
+                    console.log("Sakura effect started.");
+                }
+            } catch(e) {
+                console.error("Sakura fail:", e);
             }
-        } catch(e) {
-            console.error("Sakura initialization failed:", e);
-        }
+        }, 500); // 0.5초 지연 후 실행하여 다른 스크립트와 충돌 방지
 
         // 갤러리 초기화
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
