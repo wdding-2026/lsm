@@ -11,83 +11,67 @@
     <meta property="og:image:width" content="800" />
     <meta property="og:image:height" content="1200" />
     
-    <!-- 모바일 확대 방지 설정 적용 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
 
     <link rel="stylesheet" href="./resources/snow.css">
     <link rel="stylesheet" href="./resources/font.css">
-    <!-- 아이콘-->
     <link rel="icon" type="image/jpeg" href="images/favicon.jpeg?ver=1.1">
     <link rel="shortcut icon" type="image/jpeg" href="images/favicon.jpeg?ver=1.1">
     <link rel="apple-touch-icon" href="images/favicon.jpeg?ver=1.1">
-    <!-- 아이콘 끝-->
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="./resources/bootstrap.min.css" type="text/css" media="screen">
-    <!-- Pace -->
     <link rel="stylesheet" href="./resources/preloader.css" media="screen">
     <link rel="stylesheet" href="./resources/preloader-default.css" media="screen">
-    <!-- Flexslider -->
     <link rel="stylesheet" href="./resources/flexslider.css" type="text/css">
-    <!-- Animate -->
     <link rel="stylesheet" href="./resources/animate.css" type="text/css">
-    <!-- Countdown -->
     <link rel="stylesheet" href="./resources/jquery.countdown.css" type="text/css">
-    <!-- Magnific Popup -->
     <link rel="stylesheet" href="./resources/magnific-popup.css" type="text/css">
-    <!-- Owl Carousel -->
     <link rel="stylesheet" href="./resources/owl.carousel.css" type="text/css">
     <link rel="stylesheet" href="./resources/owl.theme.css" type="text/css">
-    <!-- Icon -->
     <link rel="stylesheet" href="./resources/fontello.css" type="text/css" media="screen">
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Arvo:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
 
-    <!-- Theme CSS -->
     <link href="./resources/style.css" rel="stylesheet" media="screen">
 
     <link rel="stylesheet" href="./resources/slick-theme.css" type="text/css">
     <link rel="stylesheet" href="./resources/slick.css" type="text/css">
 
     <style data-emotion="css" data-s=""></style>
-<!-- 겔러리 스타일 -->
 <style>
-    /* 1. 메인 큰 이미지 규격 고정 (PC/모바일 공통) */
+    /* 1. 메인 큰 이미지 규격 (PC 기준 세로형) */
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
         width: 100% !important;
-        height: 500px !important;    /* 이미지 높이를 강제로 고정합니다 */
-        object-fit: cover !important; /* 비율을 유지하면서 영역을 꽉 채웁니다 (잘림 방지) */
-        object-position: center !important; /* 이미지의 정중앙이 보이게 합니다 */
-        background-color: #f0f0f0;    /* 로딩 전 배경색 */
+        height: 700px !important;    /* PC에서 세로 사진이 잘 보이도록 높이 증가 */
+        object-fit: cover !important; 
+        object-position: center !important; 
+        background-color: #f0f0f0;    
     }
 
-    /* 2. 하단 썸네일 이미지 규격 고정 */
+    /* 2. 하단 썸네일 이미지 규격 */
     .slider-nav .photo-item .thum,
     .slider-nav2 .photo-item .thum {
         width: 100% !important;
-        height: 60px !important;      /* 썸네일의 높이를 고정합니다 */
+        height: 80px !important;      /* 썸네일 크기도 살짝 키움 */
         background-size: cover !important;
         background-position: center !important;
         background-color: #eee;
     }
 
-    /* 3. 모바일용 (화면 너비가 768px 이하일 때) */
+    /* 3. 모바일용 (화면 너비가 768px 이하일 때) - 세로 비율(3:4) 적용 */
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            height: 350px !important; /* 모바일에서는 화면에 맞게 높이를 줄입니다 */
+            height: 520px !important; /* 수정됨: 모바일에서 세로 사진 비율(3:4)에 맞춰 높이 증가 (기존 350px -> 520px) */
         }
         .slider-nav .photo-item .thum,
         .slider-nav2 .photo-item .thum {
-            height: 50px !important;  /* 모바일 썸네일 높이 조절 */
+            height: 60px !important;  
         }
     }
 </style>
-<!-- 겔러리 스타일 -->
-
-    <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
+<link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
 </head>
 
 <body class="outside-bottom-bar-page pace-done">
@@ -97,18 +81,15 @@
     </div>
     <div class="pace-activity"></div>
 </div>
-<!--PRELOADER-->
 <div id="preloader" style="display: none;">
 
     <div class="alignment">
         <div class="v-align center-middle">
 
-            <!-- LEFT HEART -->
             <div class="heart-animation">
                 <i class="de-icon-heart"></i>
             </div>
 
-            <!-- RIGHT HEART -->
             <div class="heart-animation-reverse">
                 <i class="de-icon-heart"></i>
             </div>
@@ -116,18 +97,11 @@
         </div>
     </div>
 
-</div> <!--END of PRELOADER-->
-
-
-<!-- MAIN SLIDER -->
-<section id="main-slider" class="flexslider fullscreen" style="height: 887px;">
-    <!-- MAIN SLIDER TITLE OUTTER WRAPPER -->
+</div> <section id="main-slider" class="flexslider fullscreen" style="height: 887px;">
     <div class="slide-title-outter-wrapper">
 
-        <!-- MAIN SLIDER TITLE INNER WRAPPER -->
         <div class="slide-title-inner-wrapper">
 
-            <!-- TITLE 2 -->
             <div class="slide-title align-middle">
                 <div class="container">
                     <div class="row">
@@ -143,31 +117,19 @@
                 </div>
             </div>
 
-        </div><!-- END of MAIN SLIDER TITLE INNER WRAPPER -->
-
-    </div> <!-- END of MAIN SLIDER TITLE OUTTER WRAPPER -->
-
-    <!-- MAIN SLIDER IMAGES -->
-    <ul class="slides">
+        </div></div> <ul class="slides">
         <li class="flex-active-slide2" style="position: relative; opacity: 1; display: block; ">
             <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:top center">
             </div>
         </li>
-    </ul><!-- END of MAIN SLIDER IMAGES -->
-
-    <ul class="flex-direction-nav">
+    </ul><ul class="flex-direction-nav">
         <li><a class="flex-prev flex-disabled" href="#" tabindex="-1">Previous</a></li>
         <li><a class="flex-next flex-disabled" href="#" tabindex="-1">Next</a></li>
     </ul>
-</section><!-- ENF of MAIN SLIDER -->
-
-
-<!--CONTENT SECTION-->
-<section id="content">
+</section><section id="content">
     <section id="map">
         <div class="container">
             <div class="row">
-                <!-- SECTION TITLE -->
                 <div class="col-md-12 text-center">
                     <div class="section-title animation fadeInUp" style="margin-top: 90px;margin-bottom: 90px">
                          <img src="https://self.cryucompany.com/flower-3.png" style="width:40px" alt="">
@@ -198,7 +160,6 @@
     </div>
 </div>
             </div>
-            <!-- ROW-3 -->
             <div class="row">
                 <div class="col-md-offset-2 col-md-8 text-center" style="padding-top: 100px">
                     <div style="margin-top: 20px;margin-bottom: 60px">
@@ -213,8 +174,7 @@
         </div>
     </section>
 
- <!-- 갤러리 관련 부분 -->
-<section id="gallery">
+ <section id="gallery">
     <div class="container">
         <div class="row">
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
@@ -225,9 +185,7 @@
         </div>
     </div>
 </section>
-<!-- 갤러리 끝 -->
-
-    <section id="contact">
+<section id="contact">
         <div class="image-divider auto-height" style="background-image:url(images/footer.jpg); padding-bottom: 100px;padding-top: 100px;">
 
             <div class="divider-overlay"></div>
@@ -251,51 +209,31 @@
 
 </section>
 
-<!-- jQuery (CDN을 폴백으로 추가하여 $ 에러 방지) -->
 <script src="./resources/jquery-1.11.1.min.js"></script>
 <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.4.min.js"><\/script>')</script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<!-- Pace -->
 <script src="./resources/pace.min.js"></script>
-<!-- Bootstrap -->
 <script src="./resources/bootstrap.js"></script>
-<!-- Modernizr -->
 <script src="./resources/modernizr.js"></script>
-<!-- Device JS -->
 <script src="./resources/device.js"></script>
-<!-- TinyNav -->
 <script src="./resources/tinynav.min.js"></script>
-<!-- SmoothScroll -->
 <script src="./resources/jquery.smooth-scroll.js"></script>
-<!-- Flexslider -->
 <script src="./resources/jquery.flexslider.js"></script>
-<!-- Sticky -->
 <script src="./resources/jquery.sticky.js"></script>
-<!-- Waypoint -->
 <script src="./resources/jquery.waypoints.min.js"></script>
-<!-- DoubleTapToGo -->
 <script src="./resources/jquery.ui.widget.js"></script>
 <script src="./resources/jquery.dcd.doubletaptogo.js"></script>
-<!-- Vide -->
 <script src="./resources/jquery.vide.js"></script>
-<!-- Stellar -->
 <script src="./resources/jquery.stellar.js"></script>
-<!-- Masonry -->
 <script src="./resources/masonry.pkgd.min.js"></script>
-<!-- Countdown -->
 <script src="./resources/jquery.plugin.js"></script>
 <script src="./resources/jquery.countdown.js"></script>
-<!-- Magnific Popup -->
 <script src="./resources/jquery.magnific-popup.js"></script>
-<!-- Owl Carousel -->
 <script src="./resources/owl.carousel.js"></script>
-<!-- RSVP -->
 <script src="./resources/rsvp.js"></script>
 
-<!-- Custom Core Script -->
 <script type="text/javascript" src="./resources/script.js"></script>
-<!-- Custom Additional Script -->
 <script type="text/javascript" src="./resources/main-slider-fade.js"></script>
 
 <script type="text/javascript">
@@ -315,7 +253,7 @@
         return null;
     }
 
-    // 갤러리 빌드 및 슬라이더 초기화 (최적화 버전)
+    // 갤러리 빌드 및 슬라이더 초기화 (썸네일 로딩 속도 최적화 버전)
     async function initAutoGallery(path, forId, navId) {
         const forContainer = $(forId);
         const navContainer = $(navId);
@@ -326,18 +264,26 @@
             const imgUrl = await getExistingUrl(path, i);
             if (!imgUrl) break;
 
+            // 수정됨: 원본 경로(imgUrl)에서 파일명을 추출하여 'thumb_' 붙인 썸네일 경로(thumbUrl) 생성
+            const parts = imgUrl.split('/');
+            const fileName = parts.pop();
+            const thumbUrl = parts.join('/') + '/thumb_' + fileName;
+
+            // 메인 슬라이더에는 원본 이미지(imgUrl)
             forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" style="width:100%;" loading="lazy"></div>');
+            
+            // 하단 썸네일 슬라이더에는 작은 이미지(thumbUrl) 사용 -> 속도 개선
             navContainer.append(
                 '<div class="photo-item"><div>' +
                 '<div style="width:50px; height:50px; display:inline-block;">' +
                 '<div class="cover"></div>' +
-                '<div class="thum" style="background-image:url(' + imgUrl + ')"></div>' +
+                '<div class="thum" style="background-image:url(' + thumbUrl + ')"></div>' +
                 '</div></div></div>'
             );
             initialFound++;
         }
 
-        // 2. 이미지가 하나라도 있으면 즉시 슬라이더 실행 (화면 노출)
+        // 2. 이미지가 하나라도 있으면 즉시 슬라이더 실행
         if (initialFound > 0) {
             $(forId).slick({
                 slidesToShow: 1,
@@ -361,17 +307,22 @@
                     const nextUrl = await getExistingUrl(path, i);
                     if (!nextUrl) break;
 
-                    // Slick의 'slickAdd' 기능을 사용해 이미 돌아가는 슬라이더에 추가
+                    // 수정됨: 나머지 이미지들도 동일하게 썸네일 경로 생성
+                    const parts = nextUrl.split('/');
+                    const fileName = parts.pop();
+                    const thumbNextUrl = parts.join('/') + '/thumb_' + fileName;
+
+                    // Slick 'slickAdd' 기능 사용
                     $(forId).slick('slickAdd', '<div class="photo-item"><img src="' + nextUrl + '" style="width:100%;" loading="lazy"></div>');
                     $(navId).slick('slickAdd', 
                         '<div class="photo-item"><div>' +
                         '<div style="width:50px; height:50px; display:inline-block;">' +
                         '<div class="cover"></div>' +
-                        '<div class="thum" style="background-image:url(' + nextUrl + ')"></div>' +
+                        '<div class="thum" style="background-image:url(' + thumbNextUrl + ')"></div>' +
                         '</div></div></div>'
                     );
                 }
-            }, 1000); // 1초 뒤에 나머지 불러오기 시작
+            }, 1000); 
         }
     }
 
