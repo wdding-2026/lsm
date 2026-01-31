@@ -40,108 +40,105 @@
     <style data-emotion="css" data-s=""></style>
 <!-- 갤러리 및 스타일 최신화 -->
 <style>
-    /* [수정됨] PC/모바일 공통: 애니메이션 미작동으로 인한 미노출 방지 (강제 표시) */
-    .animation, .fadeInUp, .animated, .slide-title-outter-wrapper, .banner-text {
+    /* [공통] 애니메이션 강제 표시 (숨김 현상 방지) */
+    .animation, .fadeInUp, .animated, .banner-text {
         opacity: 1 !important;
         visibility: visible !important;
-        /* 필요하다면 애니메이션 효과를 유지할 수도 있으나, 미노출 문제 해결을 위해 우선 표시 */
+        animation: none !important; /* 복잡한 애니메이션 제거 */
+        transform: none !important;
     }
 
-    /* [수정됨] 갤러리 전체 컨테이너 크기 조절 및 중앙 정렬 강제 */
+    /* -----------------------------------------------------------
+       1. 메인 타이틀 (PC/모바일 공통 단순화)
+    ----------------------------------------------------------- */
+    #main-slider {
+        position: relative;
+        width: 100%;
+        height: 100vh; /* 기본 높이 */
+        height: 100svh; /* 모바일 주소창 대응 높이 */
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* 배경 이미지: 단순 고정 */
+    .slide-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    /* 텍스트 컨테이너: 이미지 위에 덮어쓰기 (Overlay) */
+    /* Flexbox를 사용하여 내용을 '하단 중앙'으로 정렬 */
+    .slide-title-outter-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* 세로: 하단 정렬 */
+        align-items: center;       /* 가로: 중앙 정렬 */
+        padding-bottom: 10%;       /* 바닥에서 10% 띄움 (여백) */
+        pointer-events: none;      /* 클릭 통과 */
+    }
+
+    /* 텍스트 스타일 */
+    .banner-text {
+        text-align: center;
+        color: #fff; /* 기본 흰색 */
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* 글씨 잘 보이게 그림자 */
+        width: 100%;
+    }
+
+    /* -----------------------------------------------------------
+       2. 갤러리 스타일 (중앙 정렬 및 크기 조정)
+    ----------------------------------------------------------- */
     .slider-wrap {
-        width: 85% !important;        /* 모바일 너비 85% */
-        max-width: 500px !important;  /* PC 최대 너비 제한 */
-        margin: 0 auto 80px auto !important; /* 중앙 정렬 */
-        float: none !important;       /* [중요] 부트스트랩 float 해제하여 PC에서 중앙 정렬 */
-        display: block !important;
+        width: 85%;                   /* 기본 너비 85% */
+        max-width: 500px;             /* 최대 너비 제한 */
+        margin: 0 auto 80px auto;     /* 중앙 정렬 */
+        display: block;
     }
 
-    /* 1. 메인 큰 이미지 규격 */
     .slider-for .photo-item,
     .slider-for2 .photo-item {
         padding: 0; 
         box-sizing: border-box;
     }
 
+    /* 이미지 스타일 */
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
-        width: 100% !important;
-        height: 600px !important;    
-        object-fit: cover !important; 
-        object-position: center !important; 
+        width: 100%;
+        height: 600px;    /* PC 기본 높이 */
+        object-fit: cover; 
+        object-position: center; 
         background-color: #f0f0f0;
         border-radius: 10px; 
         display: block;
         margin: 0 auto;
     }
 
-    /* 2. 모바일용 스타일 (세로 비율 3:4 적용 및 타이틀 고정) */
+    /* 모바일 갤러리 높이 조정 */
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            height: 400px !important; /* 갤러리 높이 축소 */
-        }
-        
-        /* [수정됨] 모바일 메인 슬라이더 배경 고정 (꿀렁임 해결) */
-        /* CSS 높이 강제 제거 -> JS에서 px로 고정 */
-        #main-slider, 
-        #main-slider .slides li,
-        .slide-image {
-            width: 100% !important;
-            background-size: cover !important;
-            background-attachment: scroll !important; 
-            background-position: center center !important; 
-            transform: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            border: none !important;
-        }
-
-        /* [수정됨] 모바일 타이틀 텍스트 위치: 하단 중앙 고정 (Overlay) */
-        .slide-title-outter-wrapper {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            z-index: 10 !important;
-            
-            /* Flexbox로 하단 정렬 */
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: flex-end !important; 
-            align-items: center !important;
-            
-            padding: 0 !important;
-            padding-bottom: 15% !important; /* 바닥에서 15% 띄움 */
-            margin: 0 !important;
-            pointer-events: none; /* 배경 터치 가능 */
-        }
-        
-        .slide-title-inner-wrapper, 
-        .slide-title, 
-        .container, 
-        .row, 
-        .col-md-offset-3 {
-            width: 100% !important;
-            height: auto !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            flex: 0 0 auto !important; 
-        }
-
-        /* 실제 텍스트 박스 */
-        .banner-text {
-            width: 100% !important;
-            text-align: center !important;
-            margin: 0 !important;
-            text-shadow: 0 1px 10px rgba(0,0,0,0.3); 
+            height: 400px; 
         }
     }
 
-    /* 3. 하단 네비게이션 인디케이터 (점 모양) */
+    /* 네비게이션 인디케이터 (점) */
     .slider-nav .photo-item {
-        height: auto !important; 
+        height: auto; 
         outline: none;
         cursor: pointer;
     }
@@ -179,35 +176,22 @@
     </div>
 </div> 
 
-<!-- 메인 슬라이더 -->
-<section id="main-slider" class="flexslider fullscreen">
-    <!-- 텍스트 레이어 (이미지 위에 겹침) -->
-    <div class="slide-title-outter-wrapper">
-        <div class="slide-title-inner-wrapper">
-            <div class="slide-title">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-offset-3 col-md-6">
-                            <div class="banner-text withlove medium light" style="text-align: center;">
-                                <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; display: inline-block; text-align: center;">
-                                    이상민<br>
-                                    <span style="font-size: 20px; vertical-align: middle;">&</span><br>
-                                    임선주</h1>
-                                <div id="banner-date" style="margin-top: 10px;">2026년 01월 11일 일요일 오후 3시</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
+<!-- 메인 슬라이더 (단순화된 구조) -->
+<section id="main-slider">
+    <!-- 배경 이미지 -->
+    <div class="slide-image" style="background-color: #f0f0f0;"></div>
     
-    <!-- 배경 이미지 레이어 -->
-    <ul class="slides">
-        <li class="flex-active-slide2" style="display: block; width: 100%; height: 100%;">
-            <div class="slide-image" style="background-color: #f0f0f0;"></div>
-        </li>
-    </ul>
+    <!-- 텍스트 레이어 (Flexbox로 하단 중앙 정렬됨) -->
+    <div class="slide-title-outter-wrapper">
+        <div class="banner-text withlove medium light">
+            <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; margin-bottom: 10px;">
+                이상민<br>
+                <span style="font-size: 20px; vertical-align: middle;">&</span><br>
+                임선주
+            </h1>
+            <div id="banner-date">2026년 01월 11일 일요일 오후 3시</div>
+        </div>
+    </div>
 </section>
 
 <section id="content">
@@ -215,8 +199,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <!-- [수정됨] margin-top을 90px -> 30px로 줄여 흰색 공백 축소 -->
-                    <div class="section-title animation fadeInUp" style="margin-top: 30px; margin-bottom: 60px">
+                    <!-- 상단 여백 30px로 조정 -->
+                    <div class="section-title" style="margin-top: 30px; margin-bottom: 60px">
                          <img src="https://self.cryucompany.com/flower-3.png" style="width:40px" alt="">
                         <p style="line-height: 39px;padding-top: 30px">
                             하늘이 맑다는 것만으로<br>
@@ -229,24 +213,24 @@
                     </div>
                 </div>
                 <!-- 신랑 -->
-                <div class="col-xs-offset-1 col-xs-5 animation fadeIn animated" style="padding-right:5px;padding-left:0px;text-align:center;visibility: visible;line-height: 2em;border-right: solid 0.1px #e1e1e1; font-family: 'MapoFlowerIsland';">
+                <div class="col-xs-offset-1 col-xs-5" style="padding-right:5px;padding-left:0px;text-align:center;line-height: 2em;border-right: solid 0.1px #e1e1e1; font-family: 'MapoFlowerIsland';">
                     <div style="margin-bottom: 20px">
                         <h3 style="margin-top: 0px;margin-bottom: 10px; font-weight: normal;">신랑</h3>
                         <span>이노욱 ・ 한복순</span><span style="font-size: 10px"> 의 차남</span><br>
                         <span style="font-size: 1.2em; display:block; margin-top: 10px;">상 민</span>
                     </div>
-                    <div class="photo-item fadeInUp animated" style="visibility: visible; margin: 0 auto; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <div class="photo-item" style="margin: 0 auto; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                         <img src="./images/sm.JPG" alt="신랑" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
                 <!-- 신부 -->
-                <div class="col-xs-5 animation fadeIn animated" style="padding-right:0px;padding-left:5px;text-align:center;visibility: visible;line-height: 2em;font-family: 'MapoFlowerIsland'">
+                <div class="col-xs-5" style="padding-right:0px;padding-left:5px;text-align:center;line-height: 2em;font-family: 'MapoFlowerIsland'">
                     <div style="margin-bottom: 20px">
                         <h3 style="margin-top: 0px;margin-bottom: 10px; font-weight: normal;">신부</h3>
                         <span>임용섭 ・ 백정화</span><span style="font-size: 10px"> 의 장녀</span><br>
                         <span style="font-size: 1.2em; display:block; margin-top: 10px;">선 주</span>
                     </div>
-                    <div class="photo-item fadeInUp animated" style="visibility: visible; margin: 0 auto; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <div class="photo-item" style="margin: 0 auto; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                         <img src="./images/sj.JPG" alt="선주" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
@@ -266,7 +250,7 @@
  <section id="gallery">
     <div class="container">
         <div class="row">
-            <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
+            <div class="slider-wrap">
                 <div class="slider-for" id="auto-gallery-for-1"></div>
                 <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 5px;"></div>
             </div>
@@ -279,10 +263,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-offset-2 col-md-8 text-center">
-                        <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
+                        <div class="text-center" style="font-family: 'MapoFlowerIsland'">
                             행복하게 잘 살겠습니다.
                         </div>
-                         <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
+                         <div class="text-center" style="font-family: 'MapoFlowerIsland'">
                             감사합니다.
                         </div>
                     </div>
@@ -308,7 +292,7 @@
 <script src="./resources/jquery.ui.widget.js"></script>
 <script src="./resources/jquery.dcd.doubletaptogo.js"></script>
 <script src="./resources/jquery.vide.js"></script>
-<script src="./resources/jquery.stellar.js"></script>
+<!-- [수정됨] stellar.js 제거 (스크롤 효과 삭제) -->
 <script src="./resources/jquery.masonry.pkgd.min.js"></script>
 <script src="./resources/jquery.plugin.js"></script>
 <script src="./resources/jquery.countdown.js"></script>
@@ -409,17 +393,14 @@
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
         initGlobalImages();
         
-        // [수정됨] 모바일에서 높이 고정 및 stellar 효과 차단
+        // [수정됨] 스크롤 효과(stellar) 제거했으므로 단순 높이만 100svh(CSS)로 처리
+        // 만약 구형 브라우저에서 주소창 꿀렁임이 심하면 아래 JS 주석 해제하여 높이 고정 가능
+        /*
         if (window.innerWidth <= 768) {
-            $('.slide-image').removeAttr('data-stellar-ratio');
-            if (typeof $.stellar === 'function') {
-                $.stellar('destroy');
-            }
-            
-            // [중요] 모바일 배경 꿀렁임 방지: 로딩 시점의 높이로 고정 (CSS !important보다 우선하지 않지만 px값을 줌)
             var fixedHeight = window.innerHeight;
             $('#main-slider, .slide-image').css('height', fixedHeight + 'px');
         }
+        */
     });
 </script>
 </body>
