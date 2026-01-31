@@ -40,77 +40,94 @@
     <style data-emotion="css" data-s=""></style>
 <!-- 갤러리 스타일 (세로 사진 최적화 및 인디케이터 스타일) -->
 <style>
+    /* [수정됨] 갤러리 전체 컨테이너 크기 조절 (화면 꽉 차지 않게) */
+    .slider-wrap {
+        width: 90% !important;        /* 모바일에서 좌우 여백 확보 */
+        max-width: 600px !important;  /* PC에서 너무 커지지 않게 제한 */
+        margin: 0 auto 80px auto !important; /* 중앙 정렬 */
+    }
+
     /* 1. 메인 큰 이미지 규격 (PC 기준 세로형) */
-    /* [수정됨] 이미지 자체에 여백을 주기 위해 감싸는 div에 패딩 추가 */
     .slider-for .photo-item,
     .slider-for2 .photo-item {
-        padding: 0 15px; /* 좌우 여백 15px 추가 */
+        padding: 0; /* 이미지 내부 패딩 제거 (갤러리 전체 크기를 줄였으므로) */
         box-sizing: border-box;
     }
 
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
         width: 100% !important;
-        height: 630px !important; /* [수정됨] 700px -> 630px (약 10% 축소) */   
+        height: 600px !important; /* PC 높이 */   
         object-fit: cover !important; 
         object-position: center !important; 
         background-color: #f0f0f0;
-        border-radius: 10px; /* [수정됨] 여백과 어울리도록 모서리를 둥글게 처리 */
+        border-radius: 10px; 
     }
 
     /* 2. 모바일용 (화면 너비가 768px 이하일 때) - 세로 비율(3:4) 적용 */
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            height: 470px !important; /* [수정됨] 520px -> 470px (약 10% 축소) */
+            height: 400px !important; /* [수정됨] 모바일 높이 축소 (갤러리 전체 사이즈 감소 효과) */
         }
         
         /* [수정됨] 모바일에서 메인 슬라이더 배경 꽉 차게 고정 및 움직임 효과 제거 */
-        /* !important를 제거하여 하단의 JS 코드가 계산한 px 높이값이 적용되도록 함 */
         #main-slider, 
         #main-slider .slides li,
         .slide-image {
             background-size: cover !important;
             background-attachment: scroll !important; 
-            /* 중요: 패럴럭스 JS 효과가 background-position을 건드리지 못하게 !important로 고정 */
             background-position: center center !important; 
-            transform: none !important; /* 움직임 제거 */
+            transform: none !important;
         }
 
-        /* [수정됨] 범위 한정: 페이지 전체(.animation)가 아니라, 메인 슬라이더(#main-slider) 내부의 텍스트만 효과 제거 */
-        /* 이렇게 해야 갤러리나 다른 섹션의 등장 효과가 사라지지 않습니다. */
-        #main-slider .slide-title-outter-wrapper,
-        #main-slider .slide-title-inner-wrapper,
-        #main-slider .slide-title,
-        #main-slider .banner-text,
-        #main-slider .animation {
-            transform: none !important; /* 스크롤 시 텍스트 밀림 방지 */
-            opacity: 1 !important;      /* 투명도 변화 방지 */
-            animation: none !important; /* 등장 애니메이션 제거 */
+        /* [수정됨] 모바일 타이틀 텍스트 강제 고정 (따로 노는 현상 해결) */
+        .slide-title-outter-wrapper {
+            position: absolute !important; /* fixed가 아닌 absolute로 변경하여 부모 따라가게 함 */
+            top: 0 !important;
+            height: 100% !important;
+            transform: none !important;
+        }
+        
+        /* 텍스트 위치 미세 조정 */
+        .banner-text {
+            margin-top: 35vh !important; /* 화면 높이의 35% 지점에 위치 */
+            transform: none !important;
+            animation: none !important;
+            opacity: 1 !important;
+        }
+        
+        /* 기타 애니메이션 제거 */
+        .slide-title-inner-wrapper,
+        .slide-title,
+        .animation {
+            transform: none !important; 
+            opacity: 1 !important;      
+            animation: none !important; 
             transition: none !important; 
         }
     }
 
     /* 3. 하단 네비게이션 인디케이터 (점 모양) 스타일 */
     .slider-nav .photo-item {
-        height: auto !important; /* 높이 자동 조절 */
+        height: auto !important; 
         outline: none;
         cursor: pointer;
     }
     
     .slider-nav .indicator {
-        font-size: 20px; /* 점 크기 */
-        color: #e0e0e0; /* 기본 점 색상 (연한 회색) */
+        font-size: 20px; 
+        color: #e0e0e0; 
         transition: all 0.3s ease;
         display: block;
         line-height: 1;
-        padding: 10px 0; /* 터치 영역 확보 */
+        padding: 10px 0; 
     }
 
     /* 현재 선택된 사진의 점 스타일 */
     .slider-nav .slick-current .indicator {
-        color: #ff6f61; /* 활성 색상 (테마 코랄색) */
-        transform: scale(1.5); /* 선택되면 약간 커짐 */
+        color: #ff6f61; 
+        transform: scale(1.5); 
     }
 </style>
 <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
@@ -148,7 +165,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-6 animation delay1 fadeInUp animated" style="visibility: visible;text-shadow: rgb(164 156 156 / 37%) 1px 1px;">
-                            <div class="banner-text withlove medium light" style="margin-top: 300px; text-align: center;">
+                            <!-- margin-top은 CSS에서 제어하므로 style 태그 내용 일부 수정 -->
+                            <div class="banner-text withlove medium light" style="text-align: center;">
                                 <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; display: inline-block; text-align: center;">
                                     이상민<br>
                                     <span style="font-size: 20px; vertical-align: middle;">&</span><br>
@@ -161,7 +179,6 @@
 
         </div></div> <ul class="slides">
         <li class="flex-active-slide2" style="position: relative; opacity: 1; display: block; ">
-            <!-- [수정됨] stellar 효과 제거(data-stellar-ratio 삭제)하여 이미지와 텍스트가 같이 움직이도록 함 -->
             <div class="slide-image" style="background-image:url(images/Main.JPG); background-position:center center; background-size: cover; background-repeat: no-repeat; background-color: #f0f0f0;">
             </div>
         </li>
@@ -221,6 +238,7 @@
  <section id="gallery">
     <div class="container">
         <div class="row">
+            <!-- [수정됨] slider-wrap에 직접 스타일을 적용해 갤러리 전체 크기를 줄임 -->
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
                 <!-- '우리 둘' 타이틀 제거됨 -->
                 <div class="slider-for" id="auto-gallery-for-1"></div>
