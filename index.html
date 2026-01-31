@@ -41,13 +41,21 @@
 <!-- 갤러리 스타일 (세로 사진 최적화 및 인디케이터 스타일) -->
 <style>
     /* 1. 메인 큰 이미지 규격 (PC 기준 세로형) */
+    /* [수정됨] 이미지 자체에 여백을 주기 위해 감싸는 div에 패딩 추가 */
+    .slider-for .photo-item,
+    .slider-for2 .photo-item {
+        padding: 0 15px; /* 좌우 여백 15px 추가 */
+        box-sizing: border-box;
+    }
+
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
         width: 100% !important;
         height: 700px !important;    
         object-fit: cover !important; 
         object-position: center !important; 
-        background-color: #f0f0f0;    
+        background-color: #f0f0f0;
+        border-radius: 10px; /* [수정됨] 여백과 어울리도록 모서리를 둥글게 처리 */
     }
 
     /* 2. 모바일용 (화면 너비가 768px 이하일 때) - 세로 비율(3:4) 적용 */
@@ -286,7 +294,8 @@
         const subTitleUrl = await getExistingUrl('images/SubTitle', '');
         if (subTitleUrl) {
              // 배경이 아니라 이미지 태그로 글씨 위에 삽입
-             $('.section-title').prepend('<div style="margin-bottom:20px"><img src="' + subTitleUrl + '" style="max-width:100%; width:auto;" alt="Invite Title"></div>');
+             // [수정됨] 이미지 크기를 가로 30%로 고정
+             $('.section-title').prepend('<div style="margin-bottom:20px"><img src="' + subTitleUrl + '" style="max-width:100%; width:30%;" alt="Invite Title"></div>');
         }
     }
 
