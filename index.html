@@ -58,6 +58,7 @@
         overflow: hidden;
         padding: 0;
         margin: 0;
+        background-color: #fff; /* [수정됨] 배경 빈 공간을 흰색으로 채움 (본문과 연결 자연스럽게) */
     }
 
     /* 배경 이미지 */
@@ -155,13 +156,10 @@
        3. 모바일 전용 스타일 (높이 고정, 텍스트 라인 수정)
     ----------------------------------------------------------- */
     @media (max-width: 768px) {
-        /* [중요] 100svh 사용: 주소창 유무와 상관없이 항상 '작은 화면' 기준 높이로 고정 */
-        /* 이렇게 하면 주소창이 사라져도 배경 크기가 변하지 않습니다 (꿀렁임 방지) */
+        /* [중요] 높이는 JS에서 px로 강제 지정하므로 CSS에서는 !important 제거 */
         #main-slider, 
         #main-slider .slides li,
         .slide-image {
-            height: 100svh !important; 
-            min-height: 100svh !important;
             width: 100% !important;
             background-size: cover !important;
             background-attachment: scroll !important; 
@@ -202,11 +200,11 @@
             flex: 0 0 auto !important; 
         }
 
-        /* [수정됨] 텍스트 박스 너비 자동 조정 (흰 라인 길이 맞춤) */
+        /* [수정됨] 실제 텍스트 박스: 흰색 라인 길이 맞춤 */
         .banner-text {
-            width: auto !important;           /* 내용물만큼만 너비 차지 */
-            display: inline-block !important; /* 블록 전체 차지 방지 */
-            max-width: 90% !important;        /* 화면 너비 넘지 않게 */
+            width: auto !important;           /* [수정됨] 내용물만큼만 너비 차지 */
+            display: inline-block !important; /* [수정됨] 블록 전체 차지 방지 */
+            max-width: 90% !important;        
             text-align: center !important;
             margin: 0 auto !important;
             text-shadow: 0 1px 10px rgba(0,0,0,0.3); 
@@ -252,7 +250,7 @@
             <div class="slide-title">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-offset-3 col-md-6">
+                        <div class="col-md-offset-3 col-md-6" style="text-align: center;"> <!-- 중앙 정렬을 위한 래퍼 추가 -->
                             <div class="banner-text withlove medium light">
                                 <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; margin-bottom: 10px;">
                                     이상민<br>
@@ -473,13 +471,22 @@
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
         initGlobalImages();
         
-        // [수정됨] 모바일에서 높이 고정 로직 제거 (CSS 100svh로 대체)
-        // stellar 효과 제거만 유지
+        // [수정됨] 모바일 배경 꿀렁임 및 높이 변화 방지
         if (window.innerWidth <= 768) {
+            // 1. stellar 효과 제거
             $('.slide-image').removeAttr('data-stellar-ratio');
             if (typeof $.stellar === 'function') {
                 $.stellar('destroy');
             }
+            
+            // 2. [중요] 처음 로딩된 높이로 px 고정 (모든 관련 요소에 적용)
+            // CSS의 !important를 이기기 위해 setProperty에 important 적용
+            var fixedHeight = window.innerHeight;
+            var sliders = document.querySelectorAll('#main-slider, #main-slider .slides, #main-slider .slides li, .slide-image');
+            sliders.forEach(function(el) {
+                el.style.setProperty('height', fixedHeight + 'px', 'important');
+                el.style.setProperty('min-height', fixedHeight + 'px', 'important');
+            });
         }
     });
 </script>
