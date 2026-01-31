@@ -66,12 +66,10 @@
         }
         
         /* [수정됨] 모바일에서 메인 슬라이더 배경 꽉 차게 고정 및 움직임 효과 제거 */
+        /* !important를 제거하여 하단의 JS 코드가 계산한 px 높이값이 적용되도록 함 */
         #main-slider, 
         #main-slider .slides li,
         .slide-image {
-            height: 100vh !important;       
-            height: 100svh !important;      
-            min-height: 100svh !important;
             background-size: cover !important;
             background-attachment: scroll !important; 
             /* 중요: 패럴럭스 JS 효과가 background-position을 건드리지 못하게 !important로 고정 */
@@ -376,6 +374,7 @@
         // [수정됨] 모바일 브라우저 주소창 숨김/표시 시 배경 꿀렁거림 방지 (높이 강제 고정)
         if (window.innerWidth <= 768) {
             var fixedHeight = window.innerHeight;
+            // JS로 계산된 높이(px)를 적용 (CSS의 !important를 제거했으므로 이 스타일이 적용됨)
             $('#main-slider, #main-slider .slides li, .slide-image').css({
                 'height': fixedHeight + 'px',
                 'min-height': fixedHeight + 'px'
