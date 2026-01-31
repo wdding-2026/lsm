@@ -55,7 +55,7 @@
         position: relative;
         width: 100%;
         height: 100vh; /* 기본 높이 */
-        height: 100svh; /* 모바일 주소창 대응 높이 */
+        /* 모바일 주소창 대응은 JS로 처리하므로 CSS height 고정 제거 */
         overflow: hidden;
         padding: 0;
         margin: 0;
@@ -96,7 +96,7 @@
         text-align: center;
         color: #fff; /* 기본 흰색 */
         text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* 글씨 잘 보이게 그림자 */
-        width: 100%;
+        /* width: 100% 제거하고 내용에 맞춤 */
     }
 
     /* -----------------------------------------------------------
@@ -156,6 +156,68 @@
         color: #ff6f61; 
         transform: scale(1.5); 
     }
+
+    /* -----------------------------------------------------------
+       3. 모바일 전용 스타일 (위치 고정 및 꿀렁임 해결)
+    ----------------------------------------------------------- */
+    @media (max-width: 768px) {
+        /* [수정됨] 높이는 JS에서 !important로 고정하므로 CSS에서는 기본값만 설정 */
+        #main-slider, 
+        #main-slider .slides li,
+        .slide-image {
+            width: 100% !important;
+            background-size: cover !important;
+            background-attachment: scroll !important; 
+            background-position: center center !important; 
+            transform: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+
+        /* [수정됨] 모바일 타이틀 텍스트 하단 고정 */
+        .slide-title-outter-wrapper {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 10 !important;
+            
+            /* Flexbox로 하단 중앙 정렬 */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-end !important; 
+            align-items: center !important;
+            
+            padding: 0 !important;
+            padding-bottom: 15% !important; /* 바닥에서 15% 띄움 */
+            margin: 0 !important;
+            pointer-events: none; 
+        }
+        
+        /* 텍스트 컨테이너 초기화 */
+        .slide-title-inner-wrapper, 
+        .slide-title, 
+        .container, 
+        .row, 
+        .col-md-offset-3 {
+            width: 100% !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex: 0 0 auto !important; 
+        }
+
+        /* [수정됨] 실제 텍스트 박스: 흰색 라인 길이를 맞추기 위해 width: auto 적용 */
+        .banner-text {
+            width: auto !important;        /* 텍스트 길이만큼만 너비 차지 */
+            display: inline-block !important; /* 내용물에 딱 맞게 */
+            text-align: center !important;
+            margin: 0 auto !important;     /* 중앙 정렬 */
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3); 
+        }
+    }
 </style>
 <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
 </head>
@@ -176,22 +238,35 @@
     </div>
 </div> 
 
-<!-- 메인 슬라이더 (단순화된 구조) -->
-<section id="main-slider">
-    <!-- 배경 이미지 -->
-    <div class="slide-image" style="background-color: #f0f0f0;"></div>
-    
-    <!-- 텍스트 레이어 (Flexbox로 하단 중앙 정렬됨) -->
+<!-- 메인 슬라이더 -->
+<section id="main-slider" class="flexslider fullscreen">
+    <!-- 텍스트 레이어 (이미지 위에 겹침) -->
     <div class="slide-title-outter-wrapper">
-        <div class="banner-text withlove medium light">
-            <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; margin-bottom: 10px;">
-                이상민<br>
-                <span style="font-size: 20px; vertical-align: middle;">&</span><br>
-                임선주
-            </h1>
-            <div id="banner-date">2026년 01월 11일 일요일 오후 3시</div>
+        <div class="slide-title-inner-wrapper">
+            <div class="slide-title">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <div class="banner-text withlove medium light">
+                                <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; margin-bottom: 10px;">
+                                    이상민<br>
+                                    <span style="font-size: 20px; vertical-align: middle;">&</span><br>
+                                    임선주</h1>
+                                <div id="banner-date" style="margin-top: 10px;">2026년 01월 11일 일요일 오후 3시</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </div> 
+    
+    <!-- 배경 이미지 레이어 -->
+    <ul class="slides">
+        <li class="flex-active-slide2" style="display: block; width: 100%; height: 100%;">
+            <div class="slide-image" style="background-color: #f0f0f0;"></div>
+        </li>
+    </ul>
 </section>
 
 <section id="content">
@@ -292,7 +367,7 @@
 <script src="./resources/jquery.ui.widget.js"></script>
 <script src="./resources/jquery.dcd.doubletaptogo.js"></script>
 <script src="./resources/jquery.vide.js"></script>
-<!-- [수정됨] stellar.js 제거 (스크롤 효과 삭제) -->
+<script src="./resources/jquery.stellar.js"></script>
 <script src="./resources/jquery.masonry.pkgd.min.js"></script>
 <script src="./resources/jquery.plugin.js"></script>
 <script src="./resources/jquery.countdown.js"></script>
@@ -393,14 +468,23 @@
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
         initGlobalImages();
         
-        // [수정됨] 스크롤 효과(stellar) 제거했으므로 단순 높이만 100svh(CSS)로 처리
-        // 만약 구형 브라우저에서 주소창 꿀렁임이 심하면 아래 JS 주석 해제하여 높이 고정 가능
-        /*
+        // [수정됨] 모바일 배경 꿀렁임 및 높이 변화 방지
         if (window.innerWidth <= 768) {
+            // 1. stellar 효과 제거
+            $('.slide-image').removeAttr('data-stellar-ratio');
+            if (typeof $.stellar === 'function') {
+                $.stellar('destroy');
+            }
+            
+            // 2. [중요] 처음 로딩된 높이로 px 고정하여 주소창 변화에 영향받지 않게 함
+            // CSS의 !important를 이기기 위해 setProperty에 important 적용
             var fixedHeight = window.innerHeight;
-            $('#main-slider, .slide-image').css('height', fixedHeight + 'px');
+            var sliders = document.querySelectorAll('#main-slider, .slide-image');
+            sliders.forEach(function(el) {
+                el.style.setProperty('height', fixedHeight + 'px', 'important');
+                el.style.setProperty('min-height', fixedHeight + 'px', 'important');
+            });
         }
-        */
     });
 </script>
 </body>
