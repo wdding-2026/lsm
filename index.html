@@ -76,6 +76,18 @@
             background-position: center center !important; 
             transform: none !important; /* 움직임 제거 */
         }
+
+        /* [추가됨] 모바일에서 타이틀 텍스트 효과(패럴럭스/애니메이션) 제거 */
+        .slide-title-outter-wrapper,
+        .slide-title-inner-wrapper,
+        .slide-title,
+        .banner-text,
+        .animation {
+            transform: none !important; /* 스크롤 시 텍스트 밀림 방지 */
+            opacity: 1 !important;      /* 투명도 변화 방지 */
+            animation: none !important; /* 등장 애니메이션 제거 */
+            transition: none !important; 
+        }
     }
 
     /* 3. 하단 네비게이션 인디케이터 (점 모양) 스타일 */
@@ -148,7 +160,7 @@
 
         </div></div> <ul class="slides">
         <li class="flex-active-slide2" style="position: relative; opacity: 1; display: block; ">
-            <!-- PC에서는 움직임 효과 유지, 모바일은 CSS로 무력화됨 -->
+            <!-- [수정됨] 꽉 차게 보이도록 cover로 변경, 움직임 효과(stellar) 유지 -->
             <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:center center; background-size: cover; background-repeat: no-repeat; background-color: #f0f0f0;">
             </div>
         </li>
@@ -192,12 +204,9 @@
             </div>
             <div class="row">
                 <div class="col-md-offset-2 col-md-8 text-center" style="padding-top: 100px">
-                    <div style="margin-top: 20px;margin-bottom: 60px">
-                        <span style="font-family: 'MapoFlowerIsland'">초대 맨트 1</span>
-                    </div>
-                    <h3 class="inline">양가 합의 하 결혼식은 올리지 않았으니,<br> 멀리서나마 마음으로 축하해 주시면 감사하겠습니다.</h3>
+                    <h3 class="inline">양가의 뜻을 모아 예식 없이 혼인 소식을 전합니다.</h3>
                     <div style="margin-top: 20px">
-                        <span style="font-family: 'MapoFlowerIsland'">서울시 관악구 봉천동 은천로8길 11</span>
+                        <span style="font-family: 'MapoFlowerIsland'">축하해 주신 모든 분들께 감사드립니다.</span>
                     </div>
                 </div>
             </div>
@@ -208,10 +217,6 @@
     <div class="container">
         <div class="row">
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
-                <h3>우리 둘</h3>
-                <div class="slider-for" id="auto-gallery-for-1"></div>
-                <!-- 하단 네비게이션: 마진값 조정 -->
-                <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 5px;"></div>
             </div>
         </div>
     </div>
@@ -224,10 +229,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-offset-2 col-md-8 text-center">
-                        <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
-                            <h4 style="font-family: 'MapoFlowerIsland'">마음 전하실 곳</h4><br>
-                            축하의 마음을 전달해주세요.
-                        </div>
                         <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
                             행복하게 잘 살겠습니다.
                         </div>
