@@ -51,7 +51,7 @@
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
         width: 100% !important;
-        height: 700px !important;    
+        height: 630px !important; /* [수정됨] 700px -> 630px (약 10% 축소) */   
         object-fit: cover !important; 
         object-position: center !important; 
         background-color: #f0f0f0;
@@ -62,7 +62,7 @@
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            height: 520px !important; 
+            height: 470px !important; /* [수정됨] 520px -> 470px (약 10% 축소) */
         }
         
         /* [수정됨] 모바일에서 메인 슬라이더 배경 꽉 차게 고정 및 움직임 효과 제거 */
@@ -161,8 +161,8 @@
 
         </div></div> <ul class="slides">
         <li class="flex-active-slide2" style="position: relative; opacity: 1; display: block; ">
-            <!-- [수정됨] 꽉 차게 보이도록 cover로 변경, 움직임 효과(stellar) 유지 -->
-            <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:center center; background-size: cover; background-repeat: no-repeat; background-color: #f0f0f0;">
+            <!-- [수정됨] stellar 효과 제거(data-stellar-ratio 삭제)하여 이미지와 텍스트가 같이 움직이도록 함 -->
+            <div class="slide-image" style="background-image:url(images/Main.JPG); background-position:center center; background-size: cover; background-repeat: no-repeat; background-color: #f0f0f0;">
             </div>
         </li>
     </ul><ul class="flex-direction-nav">
@@ -176,7 +176,8 @@
                 <div class="col-md-12 text-center">
                     <div class="section-title animation fadeInUp" style="margin-top: 90px;margin-bottom: 90px">
                          <img src="https://self.cryucompany.com/flower-3.png" style="width:40px" alt="">
-                        <p style="line-height: 39px;padding-top: 20px"><br>하늘이 맑다는 것만으로<br>함께 행복해할 수 있는 상대를 만났습니다.<br><br>이제는 둘이서 겨울을 나고,<br>히루하루 작은 일상으로 마음을 다지며<br><br>소풍이 끝나는 날까지<br>가족으로 남겠습니다.<br></p>
+                        <!-- [수정됨] 맨 앞의 <br> 제거하여 여백 줄임 -->
+                        <p style="line-height: 39px;padding-top: 20px">하늘이 맑다는 것만으로<br>함께 행복해할 수 있는 상대를 만났습니다.<br><br>이제는 둘이서 겨울을 나고,<br>히루하루 작은 일상으로 마음을 다지며<br><br>소풍이 끝나는 날까지<br>가족으로 남겠습니다.<br></p>
                     </div>
                 </div>
                 <div class="col-xs-offset-1 col-xs-5 animation fadeIn animated" style="padding-right:5px;padding-left:0px;text-align:center;visibility: visible;line-height: 2em;border-right: solid 0.1px #e1e1e1; font-family: 'MapoFlowerIsland';">
@@ -206,7 +207,7 @@
             <div class="row">
                 <div class="col-md-offset-2 col-md-8 text-center" style="padding-top: 100px">
                     <div style="margin-top: 20px;margin-bottom: 60px">
-                        <span style="font-family: 'MapoFlowerIsland'">초대 맨트 1</span>
+                        <!-- '초대 맨트 1' 제거됨 -->
                     </div>
                     <h3 class="inline">양가의 뜻을 모아 예식 없이 혼인 소식을 전합니다.</h3>
                     <div style="margin-top: 20px">
@@ -221,8 +222,7 @@
     <div class="container">
         <div class="row">
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
-                <!-- 갤러리 코드 복구 -->
-                <h3>우리 둘</h3>
+                <!-- '우리 둘' 타이틀 제거됨 -->
                 <div class="slider-for" id="auto-gallery-for-1"></div>
                 <!-- 하단 네비게이션: 마진값 조정 -->
                 <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 5px;"></div>
