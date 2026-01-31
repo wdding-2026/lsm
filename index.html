@@ -281,6 +281,13 @@
         if (thumbUrl) {
              $('meta[property="og:image"]').attr('content', location.origin + location.pathname.replace('index.html','') + thumbUrl);
         }
+
+        // [수정됨] SubTitle 이미지 설정 (초대 글귀 위에 이미지 삽입)
+        const subTitleUrl = await getExistingUrl('images/SubTitle', '');
+        if (subTitleUrl) {
+             // 배경이 아니라 이미지 태그로 글씨 위에 삽입
+             $('.section-title').prepend('<div style="margin-bottom:20px"><img src="' + subTitleUrl + '" style="max-width:100%; width:auto;" alt="Invite Title"></div>');
+        }
     }
 
     // 갤러리 빌드 및 슬라이더 초기화 (인디케이터 버전)
