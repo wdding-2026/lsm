@@ -49,19 +49,18 @@
     }
 
     /* -----------------------------------------------------------
-       1. 메인 타이틀 (PC/모바일 공통 단순화)
+       1. 메인 타이틀 (PC/모바일 공통)
     ----------------------------------------------------------- */
     #main-slider {
         position: relative;
         width: 100%;
-        height: 100vh; /* 기본 높이 */
-        /* 모바일 주소창 대응은 JS로 처리하므로 CSS height 고정 제거 */
+        height: 100vh; /* PC 기본 높이 */
         overflow: hidden;
         padding: 0;
         margin: 0;
     }
 
-    /* 배경 이미지: 단순 고정 */
+    /* 배경 이미지 */
     .slide-image {
         position: absolute;
         top: 0;
@@ -74,8 +73,7 @@
         z-index: 1;
     }
 
-    /* 텍스트 컨테이너: 이미지 위에 덮어쓰기 (Overlay) */
-    /* Flexbox를 사용하여 내용을 '하단 중앙'으로 정렬 */
+    /* 텍스트 컨테이너 (Overlay) */
     .slide-title-outter-wrapper {
         position: absolute;
         top: 0;
@@ -85,27 +83,27 @@
         z-index: 2;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* 세로: 하단 정렬 */
-        align-items: center;       /* 가로: 중앙 정렬 */
-        padding-bottom: 10%;       /* 바닥에서 10% 띄움 (여백) */
+        justify-content: flex-end; /* 하단 정렬 */
+        align-items: center;       /* 중앙 정렬 */
+        padding-bottom: 10vh;      /* 하단 여백 */
         pointer-events: none;      /* 클릭 통과 */
     }
 
     /* 텍스트 스타일 */
     .banner-text {
         text-align: center;
-        color: #fff; /* 기본 흰색 */
-        text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* 글씨 잘 보이게 그림자 */
-        /* width: 100% 제거하고 내용에 맞춤 */
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        /* PC에서는 기본 block 동작 유지 */
     }
 
     /* -----------------------------------------------------------
-       2. 갤러리 스타일 (중앙 정렬 및 크기 조정)
+       2. 갤러리 스타일
     ----------------------------------------------------------- */
     .slider-wrap {
-        width: 85%;                   /* 기본 너비 85% */
-        max-width: 500px;             /* 최대 너비 제한 */
-        margin: 0 auto 80px auto;     /* 중앙 정렬 */
+        width: 85%;
+        max-width: 500px;
+        margin: 0 auto 80px auto;
         display: block;
     }
 
@@ -115,11 +113,10 @@
         box-sizing: border-box;
     }
 
-    /* 이미지 스타일 */
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
         width: 100%;
-        height: 600px;    /* PC 기본 높이 */
+        height: 600px;    
         object-fit: cover; 
         object-position: center; 
         background-color: #f0f0f0;
@@ -128,7 +125,6 @@
         margin: 0 auto;
     }
 
-    /* 모바일 갤러리 높이 조정 */
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
@@ -136,7 +132,6 @@
         }
     }
 
-    /* 네비게이션 인디케이터 (점) */
     .slider-nav .photo-item {
         height: auto; 
         outline: none;
@@ -158,10 +153,10 @@
     }
 
     /* -----------------------------------------------------------
-       3. 모바일 전용 스타일 (위치 고정 및 꿀렁임 해결)
+       3. 모바일 전용 스타일 (높이 고정, 텍스트 라인 수정)
     ----------------------------------------------------------- */
     @media (max-width: 768px) {
-        /* [수정됨] 높이는 JS에서 !important로 고정하므로 CSS에서는 기본값만 설정 */
+        /* [중요] 높이는 JS에서 px로 강제 지정하므로 CSS에서는 !important 제거 */
         #main-slider, 
         #main-slider .slides li,
         .slide-image {
@@ -175,7 +170,7 @@
             border: none !important;
         }
 
-        /* [수정됨] 모바일 타이틀 텍스트 하단 고정 */
+        /* 텍스트 컨테이너 */
         .slide-title-outter-wrapper {
             position: absolute !important;
             top: 0 !important;
@@ -183,20 +178,16 @@
             width: 100% !important;
             height: 100% !important;
             z-index: 10 !important;
-            
-            /* Flexbox로 하단 중앙 정렬 */
             display: flex !important;
             flex-direction: column !important;
             justify-content: flex-end !important; 
             align-items: center !important;
-            
             padding: 0 !important;
-            padding-bottom: 15% !important; /* 바닥에서 15% 띄움 */
+            padding-bottom: 15% !important; /* 하단 15% 띄움 */
             margin: 0 !important;
             pointer-events: none; 
         }
         
-        /* 텍스트 컨테이너 초기화 */
         .slide-title-inner-wrapper, 
         .slide-title, 
         .container, 
@@ -209,12 +200,13 @@
             flex: 0 0 auto !important; 
         }
 
-        /* [수정됨] 실제 텍스트 박스: 흰색 라인 길이를 맞추기 위해 width: auto 적용 */
+        /* [수정됨] 실제 텍스트 박스: 흰색 라인 길이 맞춤 */
         .banner-text {
-            width: auto !important;        /* 텍스트 길이만큼만 너비 차지 */
-            display: inline-block !important; /* 내용물에 딱 맞게 */
+            width: auto !important;           /* 내용물만큼만 너비 차지 */
+            display: inline-block !important; /* 블록 전체 차지 방지 */
+            max-width: 90% !important;        /* 화면보다 커지지 않게 */
             text-align: center !important;
-            margin: 0 auto !important;     /* 중앙 정렬 */
+            margin: 0 auto !important;
             text-shadow: 0 1px 10px rgba(0,0,0,0.3); 
         }
     }
@@ -274,8 +266,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <!-- 상단 여백 30px로 조정 -->
-                    <div class="section-title" style="margin-top: 30px; margin-bottom: 60px">
+                    <div class="section-title animation fadeInUp" style="margin-top: 30px; margin-bottom: 60px">
                          <img src="https://self.cryucompany.com/flower-3.png" style="width:40px" alt="">
                         <p style="line-height: 39px;padding-top: 30px">
                             하늘이 맑다는 것만으로<br>
@@ -476,13 +467,12 @@
                 $.stellar('destroy');
             }
             
-            // 2. [중요] 처음 로딩된 높이로 px 고정하여 주소창 변화에 영향받지 않게 함
-            // CSS의 !important를 이기기 위해 setProperty에 important 적용
+            // 2. [중요] 처음 로딩된 높이로 px 고정 (모든 관련 요소에 적용)
             var fixedHeight = window.innerHeight;
-            var sliders = document.querySelectorAll('#main-slider, .slide-image');
-            sliders.forEach(function(el) {
-                el.style.setProperty('height', fixedHeight + 'px', 'important');
-                el.style.setProperty('min-height', fixedHeight + 'px', 'important');
+            var selectors = '#main-slider, #main-slider .slides, #main-slider .slides li, .slide-image';
+            $(selectors).css({
+                'height': fixedHeight + 'px',
+                'min-height': fixedHeight + 'px'
             });
         }
     });
