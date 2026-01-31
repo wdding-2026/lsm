@@ -77,12 +77,13 @@
             transform: none !important; /* 움직임 제거 */
         }
 
-        /* [추가됨] 모바일에서 타이틀 텍스트 효과(패럴럭스/애니메이션) 제거 */
-        .slide-title-outter-wrapper,
-        .slide-title-inner-wrapper,
-        .slide-title,
-        .banner-text,
-        .animation {
+        /* [수정됨] 범위 한정: 페이지 전체(.animation)가 아니라, 메인 슬라이더(#main-slider) 내부의 텍스트만 효과 제거 */
+        /* 이렇게 해야 갤러리나 다른 섹션의 등장 효과가 사라지지 않습니다. */
+        #main-slider .slide-title-outter-wrapper,
+        #main-slider .slide-title-inner-wrapper,
+        #main-slider .slide-title,
+        #main-slider .banner-text,
+        #main-slider .animation {
             transform: none !important; /* 스크롤 시 텍스트 밀림 방지 */
             opacity: 1 !important;      /* 투명도 변화 방지 */
             animation: none !important; /* 등장 애니메이션 제거 */
@@ -204,6 +205,9 @@
             </div>
             <div class="row">
                 <div class="col-md-offset-2 col-md-8 text-center" style="padding-top: 100px">
+                    <div style="margin-top: 20px;margin-bottom: 60px">
+                        <span style="font-family: 'MapoFlowerIsland'">초대 맨트 1</span>
+                    </div>
                     <h3 class="inline">양가의 뜻을 모아 예식 없이 혼인 소식을 전합니다.</h3>
                     <div style="margin-top: 20px">
                         <span style="font-family: 'MapoFlowerIsland'">축하해 주신 모든 분들께 감사드립니다.</span>
@@ -217,6 +221,11 @@
     <div class="container">
         <div class="row">
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
+                <!-- 갤러리 코드 복구 -->
+                <h3>우리 둘</h3>
+                <div class="slider-for" id="auto-gallery-for-1"></div>
+                <!-- 하단 네비게이션: 마진값 조정 -->
+                <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 5px;"></div>
             </div>
         </div>
     </div>
