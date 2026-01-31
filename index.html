@@ -40,24 +40,24 @@
     <style data-emotion="css" data-s=""></style>
 <!-- 갤러리 스타일 (세로 사진 최적화 및 인디케이터 스타일) -->
 <style>
-    /* [수정됨] 갤러리 전체 컨테이너 크기 조절 (화면 꽉 차지 않게) */
+    /* [수정됨] 갤러리 전체 컨테이너 크기 조절 (화면 꽉 차지 않게 더 축소) */
     .slider-wrap {
-        width: 90% !important;        /* 모바일에서 좌우 여백 확보 */
-        max-width: 600px !important;  /* PC에서 너무 커지지 않게 제한 */
+        width: 80% !important;        /* 모바일 너비 80%로 축소 */
+        max-width: 500px !important;  /* PC 최대 너비 제한 */
         margin: 0 auto 80px auto !important; /* 중앙 정렬 */
     }
 
     /* 1. 메인 큰 이미지 규격 (PC 기준 세로형) */
     .slider-for .photo-item,
     .slider-for2 .photo-item {
-        padding: 0; /* 이미지 내부 패딩 제거 (갤러리 전체 크기를 줄였으므로) */
+        padding: 0; 
         box-sizing: border-box;
     }
 
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
         width: 100% !important;
-        height: 600px !important; /* PC 높이 */   
+        height: 600px !important;    
         object-fit: cover !important; 
         object-position: center !important; 
         background-color: #f0f0f0;
@@ -68,10 +68,10 @@
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            height: 400px !important; /* [수정됨] 모바일 높이 축소 (갤러리 전체 사이즈 감소 효과) */
+            height: 400px !important; /* 모바일 높이 고정 */
         }
         
-        /* [수정됨] 모바일에서 메인 슬라이더 배경 꽉 차게 고정 및 움직임 효과 제거 */
+        /* [수정됨] 모바일에서 메인 슬라이더 배경 꽉 차게 고정 */
         #main-slider, 
         #main-slider .slides li,
         .slide-image {
@@ -81,26 +81,37 @@
             transform: none !important;
         }
 
-        /* [수정됨] 모바일 타이틀 텍스트 강제 고정 (따로 노는 현상 해결) */
+        /* [수정됨] 모바일 타이틀 텍스트 중앙 정렬 및 고정 (가장 중요) */
         .slide-title-outter-wrapper {
-            position: absolute !important; /* fixed가 아닌 absolute로 변경하여 부모 따라가게 함 */
+            position: absolute !important;
             top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
             height: 100% !important;
+            display: flex !important;       /* Flexbox 사용 */
+            align-items: center !important; /* 수직 중앙 정렬 */
+            justify-content: center !important; /* 수평 중앙 정렬 */
             transform: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
-        /* 텍스트 위치 미세 조정 */
+        .slide-title-inner-wrapper {
+            display: block !important;
+            width: 100% !important;
+            transform: none !important;
+        }
+
+        /* 배너 텍스트 위치 리셋 */
         .banner-text {
-            margin-top: 35vh !important; /* 화면 높이의 35% 지점에 위치 */
+            margin-top: 0 !important; 
             transform: none !important;
             animation: none !important;
             opacity: 1 !important;
         }
         
         /* 기타 애니메이션 제거 */
-        .slide-title-inner-wrapper,
-        .slide-title,
-        .animation {
+        .slide-title, .animation {
             transform: none !important; 
             opacity: 1 !important;      
             animation: none !important; 
@@ -156,7 +167,9 @@
         </div>
     </div>
 
-</div> <section id="main-slider" class="flexslider fullscreen" style="height: 887px;">
+</div> 
+<!-- [수정됨] style height 제거하여 CSS 및 JS 제어 따르게 함 -->
+<section id="main-slider" class="flexslider fullscreen">
     <div class="slide-title-outter-wrapper">
 
         <div class="slide-title-inner-wrapper">
@@ -165,7 +178,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-6 animation delay1 fadeInUp animated" style="visibility: visible;text-shadow: rgb(164 156 156 / 37%) 1px 1px;">
-                            <!-- margin-top은 CSS에서 제어하므로 style 태그 내용 일부 수정 -->
                             <div class="banner-text withlove medium light" style="text-align: center;">
                                 <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; display: inline-block; text-align: center;">
                                     이상민<br>
@@ -193,7 +205,6 @@
                 <div class="col-md-12 text-center">
                     <div class="section-title animation fadeInUp" style="margin-top: 90px;margin-bottom: 90px">
                          <img src="https://self.cryucompany.com/flower-3.png" style="width:40px" alt="">
-                        <!-- [수정됨] 맨 앞의 <br> 제거하여 여백 줄임 -->
                         <p style="line-height: 39px;padding-top: 20px">하늘이 맑다는 것만으로<br>함께 행복해할 수 있는 상대를 만났습니다.<br><br>이제는 둘이서 겨울을 나고,<br>히루하루 작은 일상으로 마음을 다지며<br><br>소풍이 끝나는 날까지<br>가족으로 남겠습니다.<br></p>
                     </div>
                 </div>
@@ -224,7 +235,6 @@
             <div class="row">
                 <div class="col-md-offset-2 col-md-8 text-center" style="padding-top: 100px">
                     <div style="margin-top: 20px;margin-bottom: 60px">
-                        <!-- '초대 맨트 1' 제거됨 -->
                     </div>
                     <h3 class="inline">양가의 뜻을 모아 예식 없이 혼인 소식을 전합니다.</h3>
                     <div style="margin-top: 20px">
@@ -238,180 +248,11 @@
  <section id="gallery">
     <div class="container">
         <div class="row">
-            <!-- [수정됨] slider-wrap에 직접 스타일을 적용해 갤러리 전체 크기를 줄임 -->
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
-                <!-- '우리 둘' 타이틀 제거됨 -->
                 <div class="slider-for" id="auto-gallery-for-1"></div>
-                <!-- 하단 네비게이션: 마진값 조정 -->
                 <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 5px;"></div>
             </div>
         </div>
     </div>
 </section>
-<section id="contact">
-        <div class="image-divider auto-height" style="background-image:url(images/footer.jpg); padding-bottom: 100px;padding-top: 100px;">
-
-            <div class="divider-overlay"></div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-offset-2 col-md-8 text-center">
-                        <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
-                            행복하게 잘 살겠습니다.
-                        </div>
-                         <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
-                            감사합니다.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-</section>
-
-<script src="./resources/jquery-1.11.1.min.js"></script>
-<script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.4.min.js"><\/script>')</script>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="./resources/pace.min.js"></script>
-<script src="./resources/bootstrap.js"></script>
-<script src="./resources/modernizr.js"></script>
-<script src="./resources/device.js"></script>
-<script src="./resources/tinynav.min.js"></script>
-<script src="./resources/jquery.smooth-scroll.js"></script>
-<script src="./resources/jquery.flexslider.js"></script>
-<script src="./resources/jquery.sticky.js"></script>
-<script src="./resources/jquery.waypoints.min.js"></script>
-<script src="./resources/jquery.ui.widget.js"></script>
-<script src="./resources/jquery.dcd.doubletaptogo.js"></script>
-<script src="./resources/jquery.vide.js"></script>
-<script src="./resources/jquery.stellar.js"></script>
-<script src="./resources/masonry.pkgd.min.js"></script>
-<script src="./resources/jquery.plugin.js"></script>
-<script src="./resources/jquery.countdown.js"></script>
-<script src="./resources/jquery.magnific-popup.js"></script>
-<script src="./resources/owl.carousel.js"></script>
-<script src="./resources/rsvp.js"></script>
-
-<script type="text/javascript" src="./resources/script.js"></script>
-<script type="text/javascript" src="./resources/main-slider-fade.js"></script>
-
-<script type="text/javascript">
-    // 이미지 존재 여부 확인 함수
-    async function getExistingUrl(path, index) {
-        // 대소문자 확장자 모두 체크 (jpeg, JPEG 추가됨)
-        const exts = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG'];
-        for (let ext of exts) {
-            const url = path + index + ext;
-            const exists = await new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => resolve(true);
-                img.onerror = () => resolve(false);
-                img.src = url;
-            });
-            if (exists) return url;
-        }
-        return null;
-    }
-
-    // Main 이미지 및 썸네일(공유 이미지) 동적 로딩
-    async function initGlobalImages() {
-        // Main 이미지 설정: images/Main.jpg, images/Main.jpeg 등 확인
-        const mainUrl = await getExistingUrl('images/Main', '');
-        if (mainUrl) {
-            $('.slide-image').css('background-image', 'url(' + mainUrl + ')');
-        }
-        
-        // Thumbnail 이미지 설정: images/Thumbnail.jpg, images/Thumbnail.jpeg 등 확인
-        const thumbUrl = await getExistingUrl('images/Thumbnail', '');
-        if (thumbUrl) {
-             $('meta[property="og:image"]').attr('content', location.origin + location.pathname.replace('index.html','') + thumbUrl);
-        }
-    }
-
-    // 갤러리 빌드 및 슬라이더 초기화 (인디케이터 버전)
-    async function initAutoGallery(path, forId, navId) {
-        const forContainer = $(forId);
-        const navContainer = $(navId);
-        let initialFound = 0;
-
-        // 1. 초기 로딩: 먼저 5개 이미지만 빠르게 찾아 추가
-        for (let i = 0; i < 5; i++) {
-            const imgUrl = await getExistingUrl(path, i);
-            if (!imgUrl) break;
-
-            // 메인 슬라이더: 원본 이미지
-            forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" style="width:100%;" loading="lazy"></div>');
-            
-            // 하단 네비게이션: 이미지가 아닌 심플한 점(●) 추가
-            navContainer.append(
-                '<div class="photo-item">' +
-                '<div style="text-align:center;">' +
-                '<span class="indicator">●</span>' +
-                '</div></div>'
-            );
-            initialFound++;
-        }
-
-        // 2. 이미지가 하나라도 있으면 즉시 슬라이더 실행
-        if (initialFound > 0) {
-            $(forId).slick({
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                arrows: false,
-                fade: false,
-                adaptiveHeight: true,
-                asNavFor: navId,
-            });
-            $(navId).slick({
-                slidesToShow: initialFound < 5 ? initialFound : 5,
-                slidesToScroll: 1,
-                asNavFor: forId,
-                focusOnSelect: true,
-                centerMode: true,
-                variableWidth: false
-            });
-
-            // 3. 백그라운드 로딩: 나머지 이미지(5~49) 추가
-            setTimeout(async () => {
-                for (let i = 5; i < 50; i++) {
-                    const nextUrl = await getExistingUrl(path, i);
-                    if (!nextUrl) break;
-
-                    // Slick 'slickAdd' 기능 사용
-                    $(forId).slick('slickAdd', '<div class="photo-item"><img src="' + nextUrl + '" style="width:100%;" loading="lazy"></div>');
-                    // 네비게이션에도 점 추가
-                    $(navId).slick('slickAdd', 
-                        '<div class="photo-item">' +
-                        '<div style="text-align:center;">' +
-                        '<span class="indicator">●</span>' +
-                        '</div></div>'
-                    );
-                }
-            }, 1000); 
-        }
-    }
-
-    // 페이지 로딩 완료 후 실행
-    $(window).on('load', function () {
-        initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
-        initGlobalImages(); // 메인 및 썸네일 자동 로딩 실행
-        
-        // [수정됨] 모바일 브라우저 주소창 숨김/표시 시 배경 꿀렁거림 방지 (높이 강제 고정)
-        if (window.innerWidth <= 768) {
-            var fixedHeight = window.innerHeight;
-            // JS로 계산된 높이(px)를 적용 (CSS의 !important를 제거했으므로 이 스타일이 적용됨)
-            $('#main-slider, #main-slider .slides li, .slide-image').css({
-                'height': fixedHeight + 'px',
-                'min-height': fixedHeight + 'px'
-            });
-            
-            // [추가됨] 모바일에서는 stellar 효과를 끄기 위해 속성 제거
-            $('.slide-image').removeAttr('data-stellar-ratio');
-        }
-    });
-</script>
-</body>
-</html>
+<section
