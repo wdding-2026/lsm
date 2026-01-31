@@ -67,7 +67,7 @@
     /* 갤러리 스타일 유지 */
     .slider-for .photo-item,
     .slider-for2 .photo-item {
-        padding: 0 15px;
+        padding: 0; /* 패딩 제거 */
         box-sizing: border-box;
     }
 
@@ -75,23 +75,25 @@
     .slider-for2 .photo-item img {
         width: 100% !important;
         height: 700px !important;    
-        object-fit: cover !important; 
+        object-fit: contain !important; /* [수정됨] 사진이 잘리지 않고 비율대로 다 보이게 설정 */
         object-position: center !important; 
         background-color: #f0f0f0;
         border-radius: 10px;
     }
 
-    /* [추가됨] 갤러리 전체 크기를 70%로 줄이고 중앙 정렬 */
-    #auto-gallery-for-1, 
-    #auto-gallery-nav-1 {
-        width: 70% !important;
-        margin: 0 auto !important;
-    }
+    /* PC에서는 부트스트랩 그리드(col-md-6)를 따르도록 전역 스타일 제거 */
 
+    /* [수정됨] 모바일에서만 갤러리 크기를 70%로 줄이고 중앙 정렬 */
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
             height: 520px !important; 
+        }
+
+        #auto-gallery-for-1, 
+        #auto-gallery-nav-1 {
+            width: 70% !important;
+            margin: 0 auto !important;
         }
     }
 
