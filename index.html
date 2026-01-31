@@ -38,37 +38,46 @@
     <link rel="stylesheet" href="./resources/slick.css" type="text/css">
 
     <style data-emotion="css" data-s=""></style>
+<!-- 갤러리 스타일 (세로 사진 최적화 및 인디케이터 스타일) -->
 <style>
     /* 1. 메인 큰 이미지 규격 (PC 기준 세로형) */
     .slider-for .photo-item img,
     .slider-for2 .photo-item img {
         width: 100% !important;
-        height: 700px !important;    /* PC에서 세로 사진이 잘 보이도록 높이 증가 */
+        height: 700px !important;    
         object-fit: cover !important; 
         object-position: center !important; 
         background-color: #f0f0f0;    
     }
 
-    /* 2. 하단 썸네일 이미지 규격 */
-    .slider-nav .photo-item .thum,
-    .slider-nav2 .photo-item .thum {
-        width: 100% !important;
-        height: 80px !important;      /* 썸네일 크기도 살짝 키움 */
-        background-size: cover !important;
-        background-position: center !important;
-        background-color: #eee;
-    }
-
-    /* 3. 모바일용 (화면 너비가 768px 이하일 때) - 세로 비율(3:4) 적용 */
+    /* 2. 모바일용 (화면 너비가 768px 이하일 때) - 세로 비율(3:4) 적용 */
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            height: 520px !important; /* 수정됨: 모바일에서 세로 사진 비율(3:4)에 맞춰 높이 증가 (기존 350px -> 520px) */
+            height: 520px !important; 
         }
-        .slider-nav .photo-item .thum,
-        .slider-nav2 .photo-item .thum {
-            height: 60px !important;  
-        }
+    }
+
+    /* 3. 하단 네비게이션 인디케이터 (점 모양) 스타일 */
+    .slider-nav .photo-item {
+        height: auto !important; /* 높이 자동 조절 */
+        outline: none;
+        cursor: pointer;
+    }
+    
+    .slider-nav .indicator {
+        font-size: 20px; /* 점 크기 */
+        color: #e0e0e0; /* 기본 점 색상 (연한 회색) */
+        transition: all 0.3s ease;
+        display: block;
+        line-height: 1;
+        padding: 10px 0; /* 터치 영역 확보 */
+    }
+
+    /* 현재 선택된 사진의 점 스타일 */
+    .slider-nav .slick-current .indicator {
+        color: #ff6f61; /* 활성 색상 (테마 코랄색) */
+        transform: scale(1.5); /* 선택되면 약간 커짐 */
     }
 </style>
 <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
@@ -119,7 +128,8 @@
 
         </div></div> <ul class="slides">
         <li class="flex-active-slide2" style="position: relative; opacity: 1; display: block; ">
-            <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:top center">
+            <!-- 움직임 효과(stellar) 유지, 배경 전체 보이기(contain) 유지 -->
+            <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:center center; background-size: contain; background-repeat: no-repeat; background-color: #fff;">
             </div>
         </li>
     </ul><ul class="flex-direction-nav">
@@ -180,7 +190,8 @@
             <div class="slider-wrap col-md-offset-3 col-md-6 text-center" style="margin-bottom: 80px;">
                 <h3>우리 둘</h3>
                 <div class="slider-for" id="auto-gallery-for-1"></div>
-                <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 10px;"></div>
+                <!-- 하단 네비게이션: 마진값 조정 -->
+                <div class="slider-nav" id="auto-gallery-nav-1" style="margin-top: 5px;"></div>
             </div>
         </div>
     </div>
@@ -239,6 +250,7 @@
 <script type="text/javascript">
     // 이미지 존재 여부 확인 함수
     async function getExistingUrl(path, index) {
+        // 대소문자 확장자 모두 체크
         const exts = ['.jpg', '.JPG', '.jpeg', '.png', '.PNG'];
         for (let ext of exts) {
             const url = path + index + ext;
@@ -253,7 +265,7 @@
         return null;
     }
 
-    // 갤러리 빌드 및 슬라이더 초기화 (썸네일 로딩 속도 최적화 버전)
+    // 갤러리 빌드 및 슬라이더 초기화 (인디케이터 버전)
     async function initAutoGallery(path, forId, navId) {
         const forContainer = $(forId);
         const navContainer = $(navId);
@@ -264,21 +276,15 @@
             const imgUrl = await getExistingUrl(path, i);
             if (!imgUrl) break;
 
-            // 수정됨: 원본 경로(imgUrl)에서 파일명을 추출하여 'thumb_' 붙인 썸네일 경로(thumbUrl) 생성
-            const parts = imgUrl.split('/');
-            const fileName = parts.pop();
-            const thumbUrl = parts.join('/') + '/thumb_' + fileName;
-
-            // 메인 슬라이더에는 원본 이미지(imgUrl)
+            // 메인 슬라이더: 원본 이미지
             forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" style="width:100%;" loading="lazy"></div>');
             
-            // 하단 썸네일 슬라이더에는 작은 이미지(thumbUrl) 사용 -> 속도 개선
+            // 하단 네비게이션: 이미지가 아닌 심플한 점(●) 추가
             navContainer.append(
-                '<div class="photo-item"><div>' +
-                '<div style="width:50px; height:50px; display:inline-block;">' +
-                '<div class="cover"></div>' +
-                '<div class="thum" style="background-image:url(' + thumbUrl + ')"></div>' +
-                '</div></div></div>'
+                '<div class="photo-item">' +
+                '<div style="text-align:center;">' +
+                '<span class="indicator">●</span>' +
+                '</div></div>'
             );
             initialFound++;
         }
@@ -298,28 +304,24 @@
                 slidesToScroll: 1,
                 asNavFor: forId,
                 focusOnSelect: true,
-                centerMode: initialFound >= 5
+                centerMode: true,
+                variableWidth: false
             });
 
-            // 3. 백그라운드 로딩: 나머지 이미지(5~49)를 순차적으로 체크하고 슬라이더에 추가
+            // 3. 백그라운드 로딩: 나머지 이미지(5~49) 추가
             setTimeout(async () => {
                 for (let i = 5; i < 50; i++) {
                     const nextUrl = await getExistingUrl(path, i);
                     if (!nextUrl) break;
 
-                    // 수정됨: 나머지 이미지들도 동일하게 썸네일 경로 생성
-                    const parts = nextUrl.split('/');
-                    const fileName = parts.pop();
-                    const thumbNextUrl = parts.join('/') + '/thumb_' + fileName;
-
                     // Slick 'slickAdd' 기능 사용
                     $(forId).slick('slickAdd', '<div class="photo-item"><img src="' + nextUrl + '" style="width:100%;" loading="lazy"></div>');
+                    // 네비게이션에도 점 추가
                     $(navId).slick('slickAdd', 
-                        '<div class="photo-item"><div>' +
-                        '<div style="width:50px; height:50px; display:inline-block;">' +
-                        '<div class="cover"></div>' +
-                        '<div class="thum" style="background-image:url(' + thumbNextUrl + ')"></div>' +
-                        '</div></div></div>'
+                        '<div class="photo-item">' +
+                        '<div style="text-align:center;">' +
+                        '<span class="indicator">●</span>' +
+                        '</div></div>'
                     );
                 }
             }, 1000); 
