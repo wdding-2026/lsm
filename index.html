@@ -73,44 +73,70 @@
             height: 400px !important; /* 갤러리 높이 축소 */
         }
         
-        /* [수정됨] 모바일 메인 슬라이더 배경 고정 (흰색 공백 및 꿀렁임 해결) */
-        #main-slider, 
-        #main-slider .slides li,
-        .slide-image {
-            height: 100svh !important;      /* [중요] 주소창 무시하고 꽉 차게 고정 */
-            min-height: 100svh !important;
-            background-size: cover !important;
-            background-attachment: scroll !important; 
-            background-position: center center !important; 
-            transform: none !important;
-            position: relative !important; /* 텍스트 배치를 위한 기준점 */
+        /* [수정됨] 모바일 메인 슬라이더 레이아웃 고정 (꿀렁임 및 겹침 문제 해결) */
+        #main-slider {
+            position: relative !important; /* 자식 요소 absolute 배치를 위한 기준 */
+            overflow: hidden !important;   /* 내용이 넘치지 않게 잘라냄 */
+            /* 높이는 JS에서 px로 강제 지정하므로 여기선 기본값만 둠 */
         }
 
-        /* [수정됨] 모바일 타이틀 텍스트 위치 강제 고정 (absolute 사용) */
-        /* 기존의 복잡한 wrapper 구조를 무시하고 텍스트 박스만 직접 제어 */
+        /* 배경 이미지 고정 */
+        #main-slider .slides,
+        #main-slider .slides li,
+        .slide-image {
+            height: 100% !important;
+            width: 100% !important;
+            background-size: cover !important;
+            background-attachment: scroll !important; /* 모바일 성능 및 호환성 */
+            background-position: center center !important; 
+            transform: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+
+        /* [수정됨] 타이틀 텍스트 컨테이너를 이미지 위로 띄움 (Overlay) */
+        /* 이 부분이 static이면 이미지 아래로 밀려납니다. absolute로 변경하여 겹치게 만듭니다. */
+        .slide-title-outter-wrapper {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 10 !important; /* 이미지보다 위에 오도록 */
+            margin: 0 !important;
+            padding: 0 !important;
+            pointer-events: none; /* 텍스트 영역이 클릭을 방해하지 않도록 */
+        }
+        
+        .slide-title-inner-wrapper, .slide-title {
+            height: 100% !important;
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* [수정됨] 텍스트 위치: 하단에서 15% 띄움 */
         .banner-text {
             position: absolute !important;
-            bottom: 12% !important;      /* 하단에서 12% 정도 띄움 (공백 한 줄 효과) */
+            bottom: 15% !important;      /* 하단 여백 확보 */
             left: 0 !important;
             width: 100% !important;
             text-align: center !important;
             margin: 0 !important;
-            transform: none !important;  /* 움직임 제거 */
-            animation: none !important;  /* 애니메이션 제거 */
+            padding: 0 20px !important; /* 좌우 여백 */
+            transform: none !important;  
+            animation: none !important;  
             opacity: 1 !important;
-            z-index: 999 !important;     /* 배경보다 위에 표시 */
+            z-index: 20 !important;
         }
         
-        /* 기존 wrapper들의 간섭 제거 */
-        .slide-title-outter-wrapper,
-        .slide-title-inner-wrapper,
-        .slide-title {
-            position: static !important;
-            height: auto !important;
-            display: block !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            transform: none !important;
+        /* 애니메이션 제거하여 잔상 방지 */
+        .slide-title, .animation {
+            transform: none !important; 
+            opacity: 1 !important;      
+            animation: none !important; 
+            transition: none !important; 
         }
     }
 
@@ -162,8 +188,8 @@
             <div class="slide-title align-middle">
                 <div class="container">
                     <div class="row">
+                        <!-- 모바일에서 이 텍스트 박스는 CSS에 의해 하단에 절대 배치됨 -->
                         <div class="col-md-offset-3 col-md-6 animation delay1 fadeInUp animated" style="visibility: visible;text-shadow: rgb(164 156 156 / 37%) 1px 1px;">
-                            <!-- banner-text가 모바일에서는 absolute로 배치됨 -->
                             <div class="banner-text withlove medium light" style="text-align: center;">
                                 <h1 class="_font-main" style="font-size: 30px; line-height: 1.5; display: inline-block; text-align: center;">
                                     이상민<br>
@@ -386,8 +412,14 @@
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
         initGlobalImages(); // 메인 및 썸네일 자동 로딩 실행
         
-        // [수정됨] 모바일에서 stellar(움직임) 효과 완전 제거
+        // [수정됨] 모바일 브라우저 주소창 숨김/표시 시 배경 꿀렁거림 방지 (높이 강제 고정)
         if (window.innerWidth <= 768) {
+            var fixedHeight = window.innerHeight;
+            // JS로 계산된 높이(px)를 적용 (CSS의 !important를 제거했으므로 이 스타일이 적용됨)
+            // !important를 붙여서 CSS의 height: 100svh보다 우선순위를 높임 (꿀렁임 완벽 방지)
+            $('#main-slider, #main-slider .slides li, .slide-image').attr('style', 'height: ' + fixedHeight + 'px !important; min-height: ' + fixedHeight + 'px !important;');
+            
+            // 모바일에서는 stellar(움직임) 효과를 끄기 위해 속성 제거
             $('.slide-image').removeAttr('data-stellar-ratio');
         }
     });
