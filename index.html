@@ -64,6 +64,12 @@
         .slider-for2 .photo-item img {
             height: 520px !important; 
         }
+        
+        /* [추가됨] 모바일에서 메인 슬라이더 배경 꽉 차게 강제 설정 */
+        .slide-image {
+            background-size: cover !important;
+            background-attachment: scroll !important; /* 모바일 배경 고정 버그 방지 */
+        }
     }
 
     /* 3. 하단 네비게이션 인디케이터 (점 모양) 스타일 */
@@ -136,8 +142,8 @@
 
         </div></div> <ul class="slides">
         <li class="flex-active-slide2" style="position: relative; opacity: 1; display: block; ">
-            <!-- 움직임 효과(stellar) 유지, 배경 전체 보이기(contain) 유지 -->
-            <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:center center; background-size: contain; background-repeat: no-repeat; background-color: #fff;">
+            <!-- [수정됨] 꽉 차게 보이도록 cover로 변경, 움직임 효과(stellar) 유지 -->
+            <div data-stellar-ratio="0.5" class="slide-image" style="background-image:url(images/Main.JPG); background-position:center center; background-size: cover; background-repeat: no-repeat; background-color: #f0f0f0;">
             </div>
         </li>
     </ul><ul class="flex-direction-nav">
