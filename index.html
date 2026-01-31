@@ -65,8 +65,13 @@
             height: 520px !important; 
         }
         
-        /* [추가됨] 모바일에서 메인 슬라이더 배경 꽉 차게 강제 설정 */
+        /* [추가됨] 모바일에서 메인 슬라이더 배경 꽉 차게 및 높이 고정 (주소창 점프 방지) */
+        #main-slider, 
+        #main-slider .slides li,
         .slide-image {
+            height: 100vh !important;       /* 구형 브라우저 호환 */
+            height: 100svh !important;      /* 모바일 주소창 무시하고 고정 높이 사용 */
+            min-height: 100svh !important;
             background-size: cover !important;
             background-attachment: scroll !important; /* 모바일 배경 고정 버그 방지 */
         }
