@@ -204,7 +204,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-offset-2 col-md-8 text-center">
-                       
+                        <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
+                            <h4 style="font-family: 'MapoFlowerIsland'">마음 전하실 곳</h4><br>
+                            축하의 마음을 전달해주세요.
+                        </div>
                         <div class="text-center animation fadeInUp animated" style="visibility: visible;font-family: 'MapoFlowerIsland'">
                             행복하게 잘 살겠습니다.
                         </div>
@@ -250,8 +253,8 @@
 <script type="text/javascript">
     // 이미지 존재 여부 확인 함수
     async function getExistingUrl(path, index) {
-        // 대소문자 확장자 모두 체크
-        const exts = ['.jpg', '.JPG', '.jpeg', '.png', '.PNG'];
+        // 대소문자 확장자 모두 체크 (jpeg, JPEG 추가됨)
+        const exts = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG'];
         for (let ext of exts) {
             const url = path + index + ext;
             const exists = await new Promise((resolve) => {
@@ -263,6 +266,21 @@
             if (exists) return url;
         }
         return null;
+    }
+
+    // Main 이미지 및 썸네일(공유 이미지) 동적 로딩
+    async function initGlobalImages() {
+        // Main 이미지 설정: images/Main.jpg, images/Main.jpeg 등 확인
+        const mainUrl = await getExistingUrl('images/Main', '');
+        if (mainUrl) {
+            $('.slide-image').css('background-image', 'url(' + mainUrl + ')');
+        }
+        
+        // Thumbnail 이미지 설정: images/Thumbnail.jpg, images/Thumbnail.jpeg 등 확인
+        const thumbUrl = await getExistingUrl('images/Thumbnail', '');
+        if (thumbUrl) {
+             $('meta[property="og:image"]').attr('content', location.origin + location.pathname.replace('index.html','') + thumbUrl);
+        }
     }
 
     // 갤러리 빌드 및 슬라이더 초기화 (인디케이터 버전)
@@ -331,6 +349,7 @@
     // 페이지 로딩 완료 후 실행
     $(window).on('load', function () {
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
+        initGlobalImages(); // 메인 및 썸네일 자동 로딩 실행
     });
 </script>
 </body>
