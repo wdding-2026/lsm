@@ -41,17 +41,13 @@
 
 <style>
     /* [수정됨] CSS 변수를 활용한 높이 고정 */
-    /* :root에 --vh 변수 초기값 설정 */
     :root {
         --vh: 1vh;
     }
 
-    /* 메인 영역 배경색 및 경계 제거 스타일 */
     #main-slider {
         background-color: #f0f0f0 !important;
         overflow: hidden;
-        /* height: 100vh; 대신 아래 코드로 대체 */
-        /* 모바일 브라우저 주소창 변화에 영향받지 않도록 계산된 변수 사용 및 !important로 강제 */
         height: 100vh; /* Fallback */
         height: calc(var(--vh, 1vh) * 100) !important;
     }
@@ -61,13 +57,12 @@
         background-position: center center !important;
         background-color: #f0f0f0 !important; 
         width: 100%;
-        height: 100% !important; /* 부모(#main-slider) 높이를 그대로 따름 */
+        height: 100% !important; 
     }
 
-    /* 갤러리 스타일 유지 */
     .slider-for .photo-item,
     .slider-for2 .photo-item {
-        padding: 0; /* 패딩 제거 */
+        padding: 0; 
         box-sizing: border-box;
     }
 
@@ -75,19 +70,17 @@
     .slider-for2 .photo-item img {
         width: 100% !important;
         height: 700px !important;    
-        object-fit: contain !important; /* [수정됨] 사진이 잘리지 않고 비율대로 다 보이게 설정 */
+        object-fit: contain !important; /* 사진 비율 유지하며 영역 채움 */
         object-position: center !important; 
         background-color: #f0f0f0;
         border-radius: 10px;
     }
 
-    /* PC에서는 부트스트랩 그리드(col-md-6)를 따르도록 전역 스타일 제거 */
-
-    /* [수정됨] 모바일에서만 갤러리 크기를 70%로 줄이고 중앙 정렬 */
+    /* [수정됨] 모바일에서 갤러리 높이를 줄이고 중앙 정렬 유지 */
     @media (max-width: 768px) {
         .slider-for .photo-item img,
         .slider-for2 .photo-item img {
-            height: 520px !important; 
+            height: 400px !important; /* 높이를 520px에서 400px로 조정 */
         }
 
         #auto-gallery-for-1, 
@@ -203,6 +196,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
+                    <!-- [수정됨] 멘트 상단에 꽃 이미지 추가 -->
+                    <img src="images/flower2.png" style="width:40px; margin-bottom: 20px;" alt="">
                     <div class="animation fadeInUp animated" style="visibility: visible; font-family: 'MapoFlowerIsland'; line-height: 2.2; font-size: 16px; color: #333;">
                         양가의 뜻을 모아 예식은 생략하고<br>
                         혼인 소식만 전합니다.<br><br>
@@ -345,22 +340,17 @@
         }
     }
 
-    // [수정됨] 모바일 주소창 높이 변화 대응 (강력한 CSS 변수 방식)
     function setDocHeight() {
-        // 초기 로딩 시점의 높이를 1% 단위로 계산
         var vh = window.innerHeight * 0.01;
-        // 문서 루트(root)에 변수 저장 -> CSS에서 var(--vh)로 사용
         document.documentElement.style.setProperty('--vh', vh + 'px');
     }
 
-    // 로딩 시 한 번 실행
     $(window).on('load', function () {
-        setDocHeight(); // 높이 계산 및 고정
+        setDocHeight(); 
         initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
         initGlobalImages();
     });
 
-    // 화면 가로 사이즈(폭)가 변경될 때만 높이를 재조정 (주소창 때문에 세로만 변할 때는 무시)
     var lastWidth = $(window).width();
     $(window).on('resize', function() {
         if ($(window).width() !== lastWidth) {
