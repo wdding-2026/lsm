@@ -109,7 +109,7 @@
         transform: scale(1.5);
     }
 
-    /* [수정됨] 이미지 저장 강력 차단 CSS */
+    /* [수정됨] 이미지 저장 차단 CSS (pointer-events 제거하여 화면 표시 문제 해결) */
     img {
         -webkit-touch-callout: none; /* iOS 길게 누르기 메뉴 차단 */
         -webkit-user-select: none;   /* 크롬/사파리 선택 차단 */
@@ -118,10 +118,7 @@
         -ms-user-select: none;       /* IE/엣지 선택 차단 */
         user-select: none;           /* 표준 선택 차단 */
         -webkit-user-drag: none;     /* 이미지 드래그 차단 */
-        
-        /* 중요: 이미지가 터치 이벤트를 받지 못하게 하여 모바일 브라우저가 '이미지'로 인식하지 못하게 함 */
-        /* 슬라이드 터치 등은 상위 div가 대신 처리하므로 기능에는 문제없음 */
-        pointer-events: none;        
+        /* pointer-events: none; 은 제거함 (화면에서 사라지는 문제 해결) */
     }
 </style>
 <link rel="stylesheet skin" href="./resources/coral.css" type="text/css">
@@ -155,7 +152,8 @@
                                     <b>이상민</b><br>
                                     <span style="font-size: 20px; vertical-align: middle;">&</span><br>
                                     <b>임선주</b></h1></div>
-                            <div id="banner-date"><b></n>2025년 11월</b></div>
+                            <!-- [수정됨] 오타 수정 </n> -> <br> -->
+                            <div id="banner-date"><b><br>2025년 11월</b></div>
                         </div>
                     </div>
                 </div>
@@ -335,4 +333,70 @@
 
         const subTitleUrl = await getExistingUrl('images/SubTitle', '');
         if (subTitleUrl) {
-             $('.section-title').prepend('<div style="margin-bottom:20
+             $('.section-title').prepend('<div style="margin-bottom:20px"><img src="' + subTitleUrl + '" style="max-width:100%; width:70%;" alt="Invite Title"></div>');
+        }
+    }
+
+    async function initAutoGallery(path, forId, navId) {
+        const forContainer = $(forId);
+        const navContainer = $(navId);
+        let initialFound = 0;
+
+        for (let i = 0; i < 5; i++) {
+            const imgUrl = await getExistingUrl(path, i);
+            if (!imgUrl) break;
+            forContainer.append('<div class="photo-item"><img src="' + imgUrl + '" style="width:100%;" loading="lazy"></div>');
+            navContainer.append('<div class="photo-item"><div style="text-align:center;"><span class="indicator">●</span></div></div>');
+            initialFound++;
+        }
+
+        if (initialFound > 0) {
+            $(forId).slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: false,
+                adaptiveHeight: true,
+                asNavFor: navId,
+            });
+            $(navId).slick({
+                slidesToShow: initialFound < 5 ? initialFound : 5,
+                slidesToScroll: 1,
+                asNavFor: forId,
+                focusOnSelect: true,
+                centerMode: true,
+                variableWidth: false
+            });
+
+            setTimeout(async () => {
+                for (let i = 5; i < 50; i++) {
+                    const nextUrl = await getExistingUrl(path, i);
+                    if (!nextUrl) break;
+                    $(forId).slick('slickAdd', '<div class="photo-item"><img src="' + nextUrl + '" style="width:100%;" loading="lazy"></div>');
+                    $(navId).slick('slickAdd', '<div class="photo-item"><div style="text-align:center;"><span class="indicator">●</span></div></div>');
+                }
+            }, 1000); 
+        }
+    }
+
+    function setDocHeight() {
+        var vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', vh + 'px');
+    }
+
+    $(window).on('load', function () {
+        setDocHeight(); 
+        initAutoGallery("images/gallery/1/", "#auto-gallery-for-1", "#auto-gallery-nav-1");
+        initGlobalImages();
+    });
+
+    var lastWidth = $(window).width();
+    $(window).on('resize', function() {
+        if ($(window).width() !== lastWidth) {
+            setDocHeight();
+            lastWidth = $(window).width();
+        }
+    });
+</script>
+</body>
+</html>
